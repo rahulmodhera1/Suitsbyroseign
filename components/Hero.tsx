@@ -41,8 +41,8 @@ export default function Hero() {
         ) : (
           <video
             ref={videoRef}
-            className="absolute inset-0 w-full h-full object-cover"
-            src="/home/Suit_hero_animation.mp4"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            src="/home/Hero_animation.mp4"
             poster="/home/hero-poster.jpg"
             autoPlay
             muted
