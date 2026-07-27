@@ -3,7 +3,7 @@ import { Bodoni_Moda, Jost } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import TapeMeasureRail from "@/components/TapeMeasureRail";
+import Grain from "@/components/Grain";
 
 const bodoni = Bodoni_Moda({
   variable: "--font-bodoni",
@@ -71,7 +71,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <TapeMeasureRail />
+        <Grain />
         <Header />
         <main id="main" className="flex-1">
           {children}

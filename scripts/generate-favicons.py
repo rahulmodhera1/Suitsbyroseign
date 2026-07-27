@@ -26,7 +26,7 @@ def make_icon(source, size, pad_ratio=0.22):
     resized = source.resize((w, h), Image.LANCZOS)
     x, y = (size - w) // 2, (size - h) // 2
     canvas.paste(resized, (x, y), resized)
-    return canvas.convert("RGB")
+    return canvas  # keep RGBA — app/favicon.ico requires an RGBA-based ICO
 
 
 def main():

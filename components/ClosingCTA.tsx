@@ -4,7 +4,7 @@ import { Reveal } from "./Reveal";
 
 export default function ClosingCTA() {
   return (
-    <section data-rail-section="Book" className="relative isolate overflow-hidden">
+    <section className="relative isolate overflow-hidden">
       <div className="relative h-[60vh] min-h-[420px] flex items-center justify-center text-center px-6">
         <Image
           src="/home/process-04.jpg"

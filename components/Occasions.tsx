@@ -13,7 +13,6 @@ const OCCASIONS: { category: string; label: string }[] = [
 export default function Occasions({ cover }: { cover: Record<string, WorkImage | undefined> }) {
   return (
     <section
-      data-rail-section="Occasions"
       className="px-6 lg:px-24"
       style={{ paddingTop: "var(--section-pad)", paddingBottom: "var(--section-pad)" }}
     >
@@ -43,6 +42,10 @@ export default function Occasions({ cover }: { cover: Record<string, WorkImage |
                   />
                 )}
                 <div className="absolute inset-0 bg-ink/30 group-hover:bg-ink/10 transition-colors duration-500" />
+                <span
+                  className="absolute inset-2 border border-brass/0 group-hover:border-brass/50 transition-colors duration-500 ease-out pointer-events-none"
+                  aria-hidden="true"
+                />
                 <span className="absolute inset-x-0 bottom-6 text-center eyebrow text-ivory">
                   {o.label}
                 </span>

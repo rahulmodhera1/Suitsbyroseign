@@ -13,7 +13,6 @@ export default function Testimonials() {
 
   return (
     <section
-      data-rail-section="Testimonials"
       className="px-6 lg:px-24"
       style={{ paddingTop: "var(--section-pad)", paddingBottom: "var(--section-pad)" }}
     >

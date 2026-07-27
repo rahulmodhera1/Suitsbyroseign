@@ -29,7 +29,6 @@ const BEATS = [
 export default function MobileStudio() {
   return (
     <section
-      data-rail-section="Mobile Studio"
       className="bg-oxblood px-6 lg:px-24"
       style={{ paddingTop: "var(--section-pad)", paddingBottom: "var(--section-pad)" }}
     >
