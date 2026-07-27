@@ -42,7 +42,7 @@ export default function Header() {
             : "bg-transparent border-b border-transparent"
         }`}
       >
-      <div className="flex items-center justify-between px-6 lg:px-16 h-28 lg:h-32">
+      <div className="flex items-center justify-between px-6 lg:px-16 h-32 lg:h-40">
         <Link
           href="/"
           className="flex items-center transition-transform duration-150 ease-out active:scale-[0.97]"
@@ -51,19 +51,19 @@ export default function Header() {
           <Image
             src="/brand/logo-white.png"
             alt="Suits By Roseign"
-            width={280}
-            height={280}
+            width={340}
+            height={340}
             priority
-            className="h-20 lg:h-24 w-auto object-contain"
+            className="h-24 sm:h-28 lg:h-32 w-auto object-contain"
           />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-10" aria-label="Primary">
+        <nav className="hidden md:flex items-center gap-12" aria-label="Primary">
           {LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="font-sans font-medium uppercase text-sm lg:text-base tracking-[0.2em] text-ivory/75 hover:text-ivory transition-colors duration-300"
+              className="font-sans font-medium uppercase text-base lg:text-lg tracking-[0.18em] text-ivory/75 hover:text-ivory transition-colors duration-300"
             >
               {link.label}
             </Link>
@@ -73,7 +73,7 @@ export default function Header() {
         <div className="hidden md:block">
           <Link
             href="/book"
-            className="inline-flex items-center bg-ivory px-8 py-3.5 eyebrow !text-ink text-sm transition-[transform] duration-200 ease-out hover:scale-[1.02] active:scale-[0.97]"
+            className="inline-flex items-center bg-ivory px-10 py-4 eyebrow !text-ink text-base transition-[transform] duration-200 ease-out hover:scale-[1.02] active:scale-[0.97]"
           >
             Book a fitting
           </Link>
@@ -82,7 +82,7 @@ export default function Header() {
         <button
           type="button"
           onClick={() => setMenuOpen(true)}
-          className="md:hidden eyebrow text-ivory transition-transform duration-150 ease-out active:scale-[0.97]"
+          className="md:hidden font-sans font-medium uppercase text-lg tracking-[0.18em] text-ivory transition-transform duration-150 ease-out active:scale-[0.97]"
           aria-haspopup="true"
           aria-expanded={menuOpen}
           aria-label="Open menu"
