@@ -79,6 +79,10 @@ body {
 a,
 button {
   cursor: pointer;
+  /* Mobile browsers draw a grey/translucent rectangle over links on tap
+     by default — most visible on image-only links like the nav logo,
+     where it reads as a stray box around the mark. */
+  -webkit-tap-highlight-color: transparent;
 }
 
 :focus-visible {

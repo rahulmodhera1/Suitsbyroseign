@@ -40,10 +40,10 @@ export default function MobileMenu({
           role="dialog"
           aria-modal="true"
           aria-label="Menu"
-          initial={reduced ? undefined : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.35, ease: EASE }}
+          initial={reduced ? undefined : { opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+          animate={{ opacity: 1, clipPath: "inset(0 0 0% 0)" }}
+          exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
+          transition={{ duration: 0.45, ease: EASE }}
         >
           <div className="flex justify-end px-6 h-20 items-center">
             <button
@@ -80,7 +80,7 @@ export default function MobileMenu({
               <Link
                 href="/book"
                 onClick={onClose}
-                className="inline-flex mt-6 border border-ivory px-6 py-2.5 eyebrow text-ivory transition-transform duration-150 ease-out active:scale-[0.97]"
+                className="inline-flex mt-6 bg-ivory px-8 py-3.5 eyebrow !text-ink transition-transform duration-150 ease-out active:scale-[0.97]"
               >
                 Book a fitting
               </Link>

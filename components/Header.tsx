@@ -42,7 +42,7 @@ export default function Header() {
             : "bg-transparent border-b border-transparent"
         }`}
       >
-      <div className="flex items-center justify-between px-6 lg:px-16 h-24 lg:h-28">
+      <div className="flex items-center justify-between px-6 lg:px-16 h-28 lg:h-32">
         <Link
           href="/"
           className="flex items-center transition-transform duration-150 ease-out active:scale-[0.97]"
@@ -51,10 +51,10 @@ export default function Header() {
           <Image
             src="/brand/logo-white.png"
             alt="Suits By Roseign"
-            width={220}
-            height={220}
+            width={280}
+            height={280}
             priority
-            className="h-16 lg:h-20 w-auto object-contain"
+            className="h-20 lg:h-24 w-auto object-contain"
           />
         </Link>
 
@@ -63,7 +63,7 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="eyebrow text-ivory/75 hover:text-ivory transition-colors duration-300"
+              className="font-sans font-medium uppercase text-sm lg:text-base tracking-[0.2em] text-ivory/75 hover:text-ivory transition-colors duration-300"
             >
               {link.label}
             </Link>
@@ -73,7 +73,7 @@ export default function Header() {
         <div className="hidden md:block">
           <Link
             href="/book"
-            className="inline-flex items-center border border-ivory px-6 py-2.5 eyebrow text-ivory transition-[background-color,color,transform] duration-200 ease-out hover:bg-ivory hover:text-ink active:scale-[0.97]"
+            className="inline-flex items-center bg-ivory px-8 py-3.5 eyebrow !text-ink text-sm transition-[transform] duration-200 ease-out hover:scale-[1.02] active:scale-[0.97]"
           >
             Book a fitting
           </Link>
