@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState, useCallback, useEffect, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { CATEGORY_LABELS, type WorkImage } from "@/lib/gallery";
@@ -15,9 +14,9 @@ export default function WorkGrid({
   images: WorkImage[];
   categories: string[];
 }) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const active = searchParams.get("category") ?? "all";
+  // Local state rather than a URL param: the gallery now lives inside the
+  // one-page layout, so filtering must not push history or move the scroll.
+  const [active, setActive] = useState("all");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const reduced = useReducedMotion();
 
@@ -26,16 +25,7 @@ export default function WorkGrid({
     [images, active]
   );
 
-  const setCategory = useCallback(
-    (cat: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      if (cat === "all") params.delete("category");
-      else params.set("category", cat);
-      const qs = params.toString();
-      router.push(qs ? `/work?${qs}` : "/work", { scroll: false });
-    },
-    [router, searchParams]
-  );
+  const setCategory = useCallback((cat: string) => setActive(cat), []);
 
   const close = useCallback(() => setLightboxIndex(null), []);
   const next = useCallback(

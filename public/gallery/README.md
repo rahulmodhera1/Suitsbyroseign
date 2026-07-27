@@ -2,7 +2,7 @@
 
 You do not need to touch any code. Follow these rules and the site updates the next time it deploys.
 
-1. **Drop a JPG or WebP into the right folder** — `weddings`, `suiting`, `womenswear`, `juniors`, or `editorial`. That's the whole workflow.
+1. **Drop a JPG or WebP into the right folder** — `weddings`, `business`, `black-tie`, or `made-to-measure`. That's the whole workflow.
 2. **The filename controls order and caption.** Use the format `NN_slug-in-words.jpg`:
    - `01_akshi-and-bibeson.jpg` sorts first and shows the caption "Akshi And Bibeson".
    - Files without a number sort after the numbered ones, alphabetically.

@@ -1,5 +1,4 @@
 import { Reveal } from "./Reveal";
-import SectionDivider from "./SectionDivider";
 
 export default function Statement() {
   return (
@@ -14,7 +13,6 @@ export default function Statement() {
         }}
         aria-hidden="true"
       />
-      <SectionDivider className="mb-14 relative" />
       <Reveal>
         <p className="relative font-display text-2xl sm:text-3xl lg:text-4xl leading-[1.35] text-ivory measure mx-auto text-center">
           A suit that fits is not a luxury. It is the baseline. You should not have to drive

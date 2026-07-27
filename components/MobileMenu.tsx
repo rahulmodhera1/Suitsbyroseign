@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect } from "react";
+import { CALENDLY_URL } from "@/lib/site";
 
-type Link_ = { href: string; label: string };
+type Section = { id: string; label: string };
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -15,7 +15,7 @@ export default function MobileMenu({
 }: {
   open: boolean;
   onClose: () => void;
-  links: Link_[];
+  links: readonly Section[];
 }) {
   const reduced = useReducedMotion();
 
@@ -45,31 +45,31 @@ export default function MobileMenu({
           exit={{ opacity: 0, clipPath: "inset(0 0 100% 0)" }}
           transition={{ duration: 0.45, ease: EASE }}
         >
-          <div className="flex justify-end px-6 h-20 items-center">
+          <div className="flex justify-end px-6 h-32 items-center">
             <button
               type="button"
               onClick={onClose}
-              className="eyebrow text-ivory"
+              className="font-sans font-medium uppercase text-lg tracking-[0.18em] text-ivory transition-transform duration-150 ease-out active:scale-[0.97]"
               aria-label="Close menu"
             >
               Close
             </button>
           </div>
-          <nav className="flex flex-col gap-2 px-6 mt-8" aria-label="Mobile primary">
+          <nav className="flex flex-col gap-2 px-6 mt-4" aria-label="Mobile primary">
             {links.map((link, i) => (
               <motion.div
-                key={link.href}
+                key={link.id}
                 initial={reduced ? undefined : { opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.08 * i, ease: EASE }}
               >
-                <Link
-                  href={link.href}
+                <a
+                  href={`#${link.id}`}
                   onClick={onClose}
-                  className="font-display text-4xl py-3 block text-ivory"
+                  className="font-display text-5xl py-3 block text-ivory"
                 >
                   {link.label}
-                </Link>
+                </a>
               </motion.div>
             ))}
             <motion.div
@@ -77,13 +77,15 @@ export default function MobileMenu({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.08 * links.length, ease: EASE }}
             >
-              <Link
-                href="/book"
+              <a
+                href={CALENDLY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={onClose}
-                className="inline-flex mt-6 bg-ivory px-8 py-3.5 eyebrow !text-ink transition-transform duration-150 ease-out active:scale-[0.97]"
+                className="inline-flex mt-8 bg-ivory px-8 py-3.5 eyebrow !text-ink transition-transform duration-150 ease-out active:scale-[0.97]"
               >
                 Book a fitting
-              </Link>
+              </a>
             </motion.div>
           </nav>
         </motion.div>

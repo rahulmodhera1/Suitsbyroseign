@@ -11,7 +11,7 @@ const OUT_FILE = "content/gallery.generated.json";
 const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
 const MAX_WARN_BYTES = 3 * 1024 * 1024;
 
-const EXPECTED_CATEGORIES = ["weddings", "suiting", "womenswear", "juniors", "editorial"];
+const EXPECTED_CATEGORIES = ["weddings", "business", "black-tie", "made-to-measure"];
 
 function titleCase(slug) {
   return slug

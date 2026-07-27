@@ -1,23 +1,16 @@
 import Image from "next/image";
-import Link from "next/link";
-
-const LINKS = [
-  { href: "/work", label: "Work" },
-  { href: "/services", label: "Services" },
-  { href: "/about", label: "About" },
-  { href: "/book", label: "Book" },
-];
+import { CALENDLY_URL, INSTAGRAM_URL, SECTIONS } from "@/lib/site";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-ivory/12 mt-32">
+    <footer className="border-t border-ivory/12">
       <div className="max-w-4xl mx-auto px-6 py-24 flex flex-col items-center text-center gap-8">
         <Image
           src="/brand/logo-white.png"
           alt="Suits By Roseign"
-          width={72}
-          height={72}
-          className="h-16 w-16 object-contain opacity-90"
+          width={140}
+          height={140}
+          className="h-24 w-auto object-contain"
         />
         <p className="font-display italic text-xl text-ivory">
           Effortless Elegance, Tailored Perfection.
@@ -25,22 +18,30 @@ export default function Footer() {
         <p className="eyebrow">Toronto, Canada</p>
 
         <nav className="flex flex-wrap justify-center gap-8 mt-4" aria-label="Footer">
-          {LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="eyebrow text-ivory/75 hover:text-ivory transition-colors duration-300"
+          {SECTIONS.map((section) => (
+            <a
+              key={section.id}
+              href={`#${section.id}`}
+              className="eyebrow !text-ivory/75 hover:!text-ivory transition-colors duration-300"
             >
-              {link.label}
-            </Link>
+              {section.label}
+            </a>
           ))}
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="eyebrow !text-ivory/75 hover:!text-ivory transition-colors duration-300"
+          >
+            Book
+          </a>
         </nav>
 
         <a
-          href="https://instagram.com/suitsbyroseign"
+          href={INSTAGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="eyebrow text-ivory/75 hover:text-ivory transition-colors duration-300"
+          className="eyebrow !text-ivory/75 hover:!text-ivory transition-colors duration-300"
         >
           @suitsbyroseign
         </a>

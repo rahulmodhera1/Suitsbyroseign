@@ -1,30 +1,23 @@
-import { getFeaturedWork, getWorkByCategory } from "@/lib/gallery";
 import Hero from "@/components/Hero";
 import Statement from "@/components/Statement";
-import MobileStudio from "@/components/MobileStudio";
-import FeaturedWork from "@/components/FeaturedWork";
-import Occasions from "@/components/Occasions";
+import WorkSection from "@/components/WorkSection";
+import ServicesSection from "@/components/ServicesSection";
+import ProcessSection from "@/components/ProcessSection";
+import AboutSection from "@/components/AboutSection";
 import Testimonials from "@/components/Testimonials";
 import ClosingCTA from "@/components/ClosingCTA";
 import JsonLd from "@/components/JsonLd";
 
 export default function Home() {
-  const featured = getFeaturedWork(6);
-  const cover = {
-    weddings: getWorkByCategory("weddings")[0],
-    suiting: getWorkByCategory("suiting")[0],
-    womenswear: getWorkByCategory("womenswear")[0],
-    juniors: getWorkByCategory("juniors")[0],
-  };
-
   return (
     <>
       <JsonLd />
       <Hero />
       <Statement />
-      <MobileStudio />
-      <FeaturedWork images={featured} />
-      <Occasions cover={cover} />
+      <WorkSection />
+      <ServicesSection />
+      <ProcessSection />
+      <AboutSection />
       <Testimonials />
       <ClosingCTA />
     </>

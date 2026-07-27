@@ -1,3 +1,5 @@
+import { CALENDLY_URL, INSTAGRAM_URL } from "@/lib/site";
+
 const AREAS = [
   "Toronto",
   "Mississauga",
@@ -22,9 +24,29 @@ export default function JsonLd() {
       "Mobile bespoke tailoring for weddings, business and formalwear across the Greater Toronto Area.",
     image: "https://suitsbyroseign.ca/brand/og-image.jpg",
     url: "https://suitsbyroseign.ca",
-    sameAs: ["https://instagram.com/suitsbyroseign"],
+    sameAs: [INSTAGRAM_URL],
     areaServed: AREAS.map((name) => ({ "@type": "City", name })),
     priceRange: "$$$",
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Tailoring services",
+      itemListElement: [
+        "Wedding Suits",
+        "Business Suits",
+        "Black Tie",
+        "Made-to-Measure",
+        "Bespoke",
+        "Shirting & Accessories",
+      ].map((name) => ({
+        "@type": "Offer",
+        itemOffered: { "@type": "Service", name },
+      })),
+    },
+    potentialAction: {
+      "@type": "ReserveAction",
+      target: CALENDLY_URL,
+      name: "Book a fitting",
+    },
   };
 
   return (

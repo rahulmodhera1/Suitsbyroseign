@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import Button from "./Button";
+import { CALENDLY_URL } from "@/lib/site";
 
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
@@ -116,24 +117,13 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 2.1, ease: EASE_OUT }}
         >
-          <Link
-            href="/book"
-            className="group inline-flex h-16 items-center gap-5 rounded-full bg-ivory pl-9 pr-3 eyebrow !text-ink text-sm transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.97]"
-          >
+          <Button href={CALENDLY_URL} external>
             Book a fitting
-            <span className="flex items-center justify-center w-11 h-11 rounded-full bg-ink text-ivory transition-transform duration-200 ease-out group-hover:translate-x-0.5">
-              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </Link>
+          </Button>
 
-          <Link
-            href="/work"
-            className="inline-flex h-16 items-center justify-center rounded-full border border-ivory/50 px-9 eyebrow !text-ivory text-sm transition-[background-color,border-color,transform] duration-200 ease-out hover:bg-ivory/10 hover:border-ivory active:scale-[0.97]"
-          >
+          <Button href="#work" variant="outline">
             View our work
-          </Link>
+          </Button>
         </motion.div>
 
         <motion.p

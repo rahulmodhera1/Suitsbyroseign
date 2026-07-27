@@ -17,11 +17,10 @@ export type WorkImage = {
 const data = raw as { categories: Record<string, WorkImage[]> };
 
 export const CATEGORY_LABELS: Record<string, string> = {
-  weddings: "Weddings",
-  suiting: "Suiting",
-  womenswear: "Womenswear",
-  juniors: "Juniors",
-  editorial: "Editorial",
+  weddings: "Wedding Suits",
+  business: "Business Suits",
+  "black-tie": "Black Tie",
+  "made-to-measure": "Made-to-Measure",
 };
 
 export function getAllWork(): WorkImage[] {

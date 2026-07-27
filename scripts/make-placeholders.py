@@ -6,6 +6,7 @@ Not part of the build pipeline. Run manually:  python3 scripts/make-placeholders
 """
 
 import math
+import os
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
@@ -126,15 +127,15 @@ def main():
     crown = logo.crop(CROWN_BOX)
 
     categories = [
-        ("weddings", "Weddings", 3),
-        ("suiting", "Suiting", 3),
-        ("womenswear", "Womenswear", 2),
-        ("juniors", "Juniors", 2),
-        ("editorial", "Editorial", 3),
+        ("weddings", "Wedding Suits", 3),
+        ("business", "Business Suits", 3),
+        ("black-tie", "Black Tie", 3),
+        ("made-to-measure", "Made to Measure", 3),
     ]
     sizes = [(1600, 2000), (2000, 1600), (1800, 1800)]
 
     for slug, label, n in categories:
+        os.makedirs(f"public/gallery/{slug}", exist_ok=True)
         for i in range(1, n + 1):
             w, h = sizes[(i - 1) % len(sizes)]
             featured = "-featured" if i == 1 else ""
