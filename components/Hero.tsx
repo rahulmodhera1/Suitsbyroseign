@@ -15,6 +15,28 @@ export default function Hero() {
     const video = videoRef.current;
     if (!video || reduced) return;
 
+    // The opening shot itself is framed slightly left of true centre and
+    // settles into place by about a second in. Nudge the crop window right
+    // to compensate only for that opening beat, easing back to a plain
+    // centred crop as the shot self-corrects — later scenes are untouched.
+    const CORRECTION_WINDOW = 1;
+    const START_POSITION = 47.3;
+    const DEFAULT_POSITION = 50;
+    let raf = 0;
+
+    const updateCrop = () => {
+      const t = video.currentTime;
+      if (t < CORRECTION_WINDOW) {
+        const progress = t / CORRECTION_WINDOW;
+        const x = START_POSITION + (DEFAULT_POSITION - START_POSITION) * progress;
+        video.style.objectPosition = `${x}% center`;
+        raf = requestAnimationFrame(updateCrop);
+      } else {
+        video.style.objectPosition = `${DEFAULT_POSITION}% center`;
+      }
+    };
+    raf = requestAnimationFrame(updateCrop);
+
     // Plays once; without a loop attribute the browser already holds the
     // last frame on end, but some browsers briefly blank out — nudging
     // currentTime back onto the final frame keeps it visibly frozen there.
@@ -22,7 +44,10 @@ export default function Hero() {
       video.currentTime = Math.max(0, video.duration - 0.05);
     };
     video.addEventListener("ended", holdLastFrame);
-    return () => video.removeEventListener("ended", holdLastFrame);
+    return () => {
+      cancelAnimationFrame(raf);
+      video.removeEventListener("ended", holdLastFrame);
+    };
   }, [reduced]);
 
   return (
