@@ -106,29 +106,39 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
-          className="flex items-center gap-4 mt-10"
+          className="flex flex-wrap items-center justify-center gap-4 mt-10"
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 2.1, ease: EASE_OUT }}
         >
-          <span className="h-px w-8 bg-ivory/40" aria-hidden="true" />
-          <p className="eyebrow">Mobile fittings across the GTA</p>
-          <span className="h-px w-8 bg-ivory/40" aria-hidden="true" />
-        </motion.div>
-
-        <motion.div
-          initial={reduced ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 2.25, ease: EASE_OUT }}
-          className="mt-10"
-        >
           <Link
             href="/book"
-            className="inline-flex items-center border border-ivory px-10 py-4 eyebrow text-ivory transition-[background-color,color,transform] duration-200 ease-out hover:bg-ivory hover:text-ink active:scale-[0.97]"
+            className="group inline-flex items-center gap-4 rounded-full bg-ivory pl-8 pr-2 py-2 eyebrow !text-ink transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.97]"
           >
             Book a fitting
+            <span className="flex items-center justify-center w-10 h-10 rounded-full bg-ink text-ivory transition-transform duration-200 ease-out group-hover:translate-x-0.5">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </Link>
+
+          <Link
+            href="/work"
+            className="inline-flex items-center rounded-full border border-ivory/50 px-8 py-3.5 eyebrow !text-ivory transition-[background-color,border-color,transform] duration-200 ease-out hover:bg-ivory/10 hover:border-ivory active:scale-[0.97]"
+          >
+            View our work
           </Link>
         </motion.div>
+
+        <motion.p
+          className="eyebrow mt-8"
+          initial={reduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 2.3, ease: EASE_OUT }}
+        >
+          Mobile fittings across the GTA
+        </motion.p>
       </div>
     </section>
   );
@@ -156,7 +166,7 @@ function Wordmark({ reduced }: { reduced: boolean }) {
 
       <div className="overflow-hidden">
         <motion.span
-          className="block font-sans font-medium uppercase text-ivory text-base sm:text-lg"
+          className="block font-sans font-bold uppercase text-ivory text-lg sm:text-xl"
           style={{ letterSpacing: "0.5em", textIndent: "0.5em" }}
           initial={reduced ? false : { clipPath: "inset(0 100% 0 0)" }}
           animate={{ clipPath: "inset(0 0% 0 0)" }}
@@ -168,10 +178,10 @@ function Wordmark({ reduced }: { reduced: boolean }) {
 
       <div className="overflow-hidden mt-1 sm:mt-2">
         <motion.span
-          className="block font-display font-bold uppercase text-ivory leading-none"
+          className="block font-display font-extrabold uppercase text-ivory leading-none"
           style={{
-            fontSize: "clamp(3.5rem, 12vw, 9rem)",
-            letterSpacing: "0.02em",
+            fontSize: "clamp(3.75rem, 13vw, 10rem)",
+            letterSpacing: "-0.01em",
           }}
           initial={reduced ? false : { clipPath: "inset(0 100% 0 0)" }}
           animate={{ clipPath: "inset(0 0% 0 0)" }}
