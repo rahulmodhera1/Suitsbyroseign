@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+const SPRING = { type: "spring" as const, damping: 1, duration: 0.6 };
 
 export default function Hero() {
   const reduced = useReducedMotion();
@@ -70,17 +70,17 @@ export default function Hero() {
       <div className="relative z-10 flex flex-col items-center text-center px-6">
         <motion.div
           className="relative"
-          initial={reduced ? false : { opacity: 0, scale: 0.94 }}
+          initial={reduced ? false : { opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.3, ease: EASE }}
+          transition={{ ...SPRING, delay: 0.25 }}
         >
           <div
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
             style={{
-              width: "min(60vw, 640px)",
-              height: "min(60vw, 640px)",
+              width: "min(62vw, 680px)",
+              height: "min(62vw, 680px)",
               background:
-                "radial-gradient(circle, rgba(243,243,241,0.14) 0%, rgba(243,243,241,0) 68%)",
+                "radial-gradient(circle, rgba(243,243,241,0.16) 0%, rgba(243,243,241,0) 68%)",
             }}
             aria-hidden="true"
           />
@@ -91,24 +91,25 @@ export default function Hero() {
             height={1080}
             priority
             className="relative h-auto mx-auto drop-shadow-[0_4px_36px_rgba(0,0,0,0.6)]"
-            style={{ width: "min(40vw, 320px)", minWidth: "190px" }}
+            style={{ width: "min(44vw, 360px)", minWidth: "210px" }}
           />
         </motion.div>
 
         <motion.p
           className="font-display italic text-2xl sm:text-3xl text-ivory mt-6"
-          initial={reduced ? false : { opacity: 0, y: 16 }}
+          style={{ letterSpacing: "-0.01em" }}
+          initial={reduced ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.8, ease: EASE }}
+          transition={{ ...SPRING, delay: 0.55 }}
         >
           Effortless elegance, tailored perfection.
         </motion.p>
 
         <motion.div
           className="flex items-center gap-4 mt-10"
-          initial={reduced ? false : { opacity: 0, y: 12 }}
+          initial={reduced ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1, ease: EASE }}
+          transition={{ ...SPRING, delay: 0.7 }}
         >
           <span className="h-px w-8 bg-ivory/40" aria-hidden="true" />
           <p className="eyebrow">Mobile fittings across the GTA</p>
@@ -116,14 +117,14 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          initial={reduced ? false : { opacity: 0, y: 12 }}
+          initial={reduced ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2, ease: EASE }}
+          transition={{ ...SPRING, delay: 0.85 }}
           className="mt-10"
         >
           <Link
             href="/book"
-            className="inline-flex items-center border border-ivory px-10 py-4 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
+            className="inline-flex items-center border border-ivory px-10 py-4 eyebrow text-ivory transition-[background-color,color,transform] duration-200 ease-out hover:bg-ivory hover:text-ink active:scale-[0.97]"
           >
             Book a fitting
           </Link>

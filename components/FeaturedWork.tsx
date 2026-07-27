@@ -54,7 +54,7 @@ export default function FeaturedWork({ images }: { images: WorkImage[] }) {
       <div className="flex justify-center mt-16">
         <Link
           href="/work"
-          className="inline-flex items-center border border-ivory px-8 py-3 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
+          className="inline-flex items-center border border-ivory px-8 py-3 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-[background-color,color,transform] duration-200 ease-out active:scale-[0.97]"
         >
           View the full portfolio
         </Link>

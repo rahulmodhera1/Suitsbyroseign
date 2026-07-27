@@ -124,7 +124,7 @@ export default function BookingForm() {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex items-center border border-ivory px-9 py-3.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out disabled:opacity-50"
+        className="inline-flex items-center border border-ivory px-9 py-3.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-[background-color,color,transform] duration-200 ease-out active:scale-[0.97] disabled:opacity-50"
       >
         {pending ? "Sending…" : "Request a fitting"}
       </button>

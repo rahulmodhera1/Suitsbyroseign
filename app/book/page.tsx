@@ -38,7 +38,7 @@ export default function BookPage() {
             </p>
             <a
               href="mailto:hello@suitsbyroseign.ca?subject=Fitting%20request"
-              className="inline-flex items-center border border-ivory px-9 py-3.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
+              className="inline-flex items-center border border-ivory px-9 py-3.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-[background-color,color,transform] duration-200 ease-out active:scale-[0.97]"
             >
               Email us
             </a>

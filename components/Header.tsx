@@ -36,19 +36,25 @@ export default function Header() {
         style={{ pointerEvents: "none" }}
       />
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-colors duration-500 ease-out ${
-          scrolled ? "bg-ink border-b border-ivory/15" : "bg-transparent"
+        className={`fixed top-0 inset-x-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500 ease-out ${
+          scrolled
+            ? "bg-ink/70 backdrop-blur-md border-b border-ivory/12"
+            : "bg-transparent border-b border-transparent"
         }`}
       >
-      <div className="flex items-center justify-between px-6 lg:px-16 h-20">
-        <Link href="/" className="flex items-center gap-3" aria-label="Suits By Roseign home">
+      <div className="flex items-center justify-between px-6 lg:px-16 h-24 lg:h-28">
+        <Link
+          href="/"
+          className="flex items-center transition-transform duration-150 ease-out active:scale-[0.97]"
+          aria-label="Suits By Roseign home"
+        >
           <Image
             src="/brand/logo-white.png"
             alt="Suits By Roseign"
-            width={40}
-            height={40}
+            width={220}
+            height={220}
             priority
-            className="h-9 w-9 object-contain"
+            className="h-16 lg:h-20 w-auto object-contain"
           />
         </Link>
 
@@ -67,7 +73,7 @@ export default function Header() {
         <div className="hidden md:block">
           <Link
             href="/book"
-            className="inline-flex items-center border border-ivory px-6 py-2.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
+            className="inline-flex items-center border border-ivory px-6 py-2.5 eyebrow text-ivory transition-[background-color,color,transform] duration-200 ease-out hover:bg-ivory hover:text-ink active:scale-[0.97]"
           >
             Book a fitting
           </Link>
@@ -76,7 +82,7 @@ export default function Header() {
         <button
           type="button"
           onClick={() => setMenuOpen(true)}
-          className="md:hidden eyebrow text-ivory"
+          className="md:hidden eyebrow text-ivory transition-transform duration-150 ease-out active:scale-[0.97]"
           aria-haspopup="true"
           aria-expanded={menuOpen}
           aria-label="Open menu"
