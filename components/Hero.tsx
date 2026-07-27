@@ -96,8 +96,8 @@ export default function Hero() {
         <Wordmark reduced={!!reduced} />
 
         <motion.p
-          className="font-display italic text-2xl sm:text-3xl text-ivory mt-8"
-          style={{ letterSpacing: "-0.01em" }}
+          className="font-display italic text-ivory mt-8"
+          style={{ letterSpacing: "-0.01em", fontSize: "clamp(1.5rem, 3.2vw, 2.5rem)" }}
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.9, ease: EASE_OUT }}
@@ -106,18 +106,18 @@ export default function Hero() {
         </motion.p>
 
         <motion.div
-          className="flex flex-wrap items-center justify-center gap-4 mt-10"
+          className="flex flex-wrap items-center justify-center gap-4 sm:gap-5 mt-12"
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 2.1, ease: EASE_OUT }}
         >
           <Link
             href="/book"
-            className="group inline-flex items-center gap-4 rounded-full bg-ivory pl-8 pr-2 py-2 eyebrow !text-ink transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.97]"
+            className="group inline-flex items-center gap-5 rounded-full bg-ivory pl-9 pr-3 py-3 eyebrow !text-ink text-sm transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.97]"
           >
             Book a fitting
-            <span className="flex items-center justify-center w-10 h-10 rounded-full bg-ink text-ivory transition-transform duration-200 ease-out group-hover:translate-x-0.5">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <span className="flex items-center justify-center w-12 h-12 rounded-full bg-ink text-ivory transition-transform duration-200 ease-out group-hover:translate-x-0.5">
+              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </span>
@@ -125,14 +125,14 @@ export default function Hero() {
 
           <Link
             href="/work"
-            className="inline-flex items-center rounded-full border border-ivory/50 px-8 py-3.5 eyebrow !text-ivory transition-[background-color,border-color,transform] duration-200 ease-out hover:bg-ivory/10 hover:border-ivory active:scale-[0.97]"
+            className="inline-flex items-center rounded-full border border-ivory/50 px-9 py-4 eyebrow !text-ivory text-sm transition-[background-color,border-color,transform] duration-200 ease-out hover:bg-ivory/10 hover:border-ivory active:scale-[0.97]"
           >
             View our work
           </Link>
         </motion.div>
 
         <motion.p
-          className="eyebrow mt-8"
+          className="eyebrow mt-9 !text-sm"
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 2.3, ease: EASE_OUT }}
@@ -166,8 +166,12 @@ function Wordmark({ reduced }: { reduced: boolean }) {
 
       <div className="overflow-hidden">
         <motion.span
-          className="block font-sans font-bold uppercase text-ivory text-lg sm:text-xl"
-          style={{ letterSpacing: "0.5em", textIndent: "0.5em" }}
+          className="block font-sans font-bold uppercase text-ivory"
+          style={{
+            fontSize: "clamp(1.1rem, 3vw, 1.75rem)",
+            letterSpacing: "0.5em",
+            textIndent: "0.5em",
+          }}
           initial={reduced ? false : { clipPath: "inset(0 100% 0 0)" }}
           animate={{ clipPath: "inset(0 0% 0 0)" }}
           transition={{ duration: 0.9, delay: 0.2, ease: EASE_OUT }}
@@ -176,12 +180,13 @@ function Wordmark({ reduced }: { reduced: boolean }) {
         </motion.span>
       </div>
 
-      <div className="overflow-hidden mt-1 sm:mt-2">
+      <div className="overflow-hidden mt-2 sm:mt-3">
         <motion.span
           className="block font-display font-extrabold uppercase text-ivory leading-none"
           style={{
-            fontSize: "clamp(3.75rem, 13vw, 10rem)",
+            fontSize: "clamp(4.5rem, 17vw, 13rem)",
             letterSpacing: "-0.01em",
+            textShadow: "0 6px 40px rgba(0,0,0,0.55)",
           }}
           initial={reduced ? false : { clipPath: "inset(0 100% 0 0)" }}
           animate={{ clipPath: "inset(0 0% 0 0)" }}
