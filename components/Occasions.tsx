@@ -38,14 +38,10 @@ export default function Occasions({ cover }: { cover: Record<string, WorkImage |
                     placeholder="blur"
                     blurDataURL={img.blurDataURL}
                     sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    className="photo object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                   />
                 )}
-                <div className="absolute inset-0 bg-ink/30 group-hover:bg-ink/10 transition-colors duration-500" />
-                <span
-                  className="absolute inset-2 border border-brass/0 group-hover:border-brass/50 transition-colors duration-500 ease-out pointer-events-none"
-                  aria-hidden="true"
-                />
+                <div className="absolute inset-0 bg-ink/35 group-hover:bg-ink/15 transition-colors duration-500" />
                 <span className="absolute inset-x-0 bottom-6 text-center eyebrow text-ivory">
                   {o.label}
                 </span>

@@ -61,7 +61,7 @@ export default function BookingForm() {
           defaultValue=""
           aria-invalid={!!state.errors.occasion}
           aria-describedby={state.errors.occasion ? "occasion-error" : undefined}
-          className="w-full bg-transparent border-b border-ivory/30 focus:border-brass py-3 text-ivory outline-none transition-colors duration-300"
+          className="w-full bg-transparent border-b border-ivory/30 focus:border-ivory py-3 text-ivory outline-none transition-colors duration-300"
         >
           <option value="" disabled>
             Select one
@@ -73,7 +73,7 @@ export default function BookingForm() {
           ))}
         </select>
         {state.errors.occasion && (
-          <p id="occasion-error" className="text-brass text-sm mt-2">
+          <p id="occasion-error" className="text-ivory/90 text-sm mt-2">
             {state.errors.occasion}
           </p>
         )}
@@ -103,7 +103,7 @@ export default function BookingForm() {
           id="message"
           name="message"
           rows={4}
-          className="w-full bg-transparent border-b border-ivory/30 focus:border-brass py-3 text-ivory outline-none transition-colors duration-300 resize-none"
+          className="w-full bg-transparent border-b border-ivory/30 focus:border-ivory py-3 text-ivory outline-none transition-colors duration-300 resize-none"
         />
       </div>
 
@@ -113,7 +113,7 @@ export default function BookingForm() {
             initial={reduced ? undefined : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-brass"
+            className="text-ivory font-normal"
             role="alert"
           >
             {state.formError}
@@ -124,7 +124,7 @@ export default function BookingForm() {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex items-center border border-brass px-9 py-3.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out disabled:opacity-50"
+        className="inline-flex items-center border border-ivory px-9 py-3.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out disabled:opacity-50"
       >
         {pending ? "Sending…" : "Request a fitting"}
       </button>
@@ -162,7 +162,7 @@ function Field({
         autoComplete={autoComplete}
         aria-invalid={!!error}
         aria-describedby={error ? `${name}-error` : hint ? `${name}-hint` : undefined}
-        className="w-full bg-transparent border-b border-ivory/30 focus:border-brass py-3 text-ivory outline-none transition-colors duration-300"
+        className="w-full bg-transparent border-b border-ivory/30 focus:border-ivory py-3 text-ivory outline-none transition-colors duration-300"
       />
       {hint && !error && (
         <p id={`${name}-hint`} className="text-smoke text-sm mt-2">
@@ -170,7 +170,7 @@ function Field({
         </p>
       )}
       {error && (
-        <p id={`${name}-error`} className="text-brass text-sm mt-2">
+        <p id={`${name}-error`} className="text-ivory/90 text-sm mt-2">
           {error}
         </p>
       )}

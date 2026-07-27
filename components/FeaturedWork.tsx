@@ -37,10 +37,10 @@ export default function FeaturedWork({ images }: { images: WorkImage[] }) {
                 placeholder="blur"
                 blurDataURL={img.blurDataURL}
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                className="photo w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
               />
-              <span
-                className="absolute inset-2 border border-brass/0 group-hover:border-brass/50 transition-colors duration-500 ease-out pointer-events-none"
+              <div
+                className="absolute inset-0 bg-ink/0 group-hover:bg-ink/10 transition-colors duration-500 ease-out pointer-events-none"
                 aria-hidden="true"
               />
               <span className="absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out bg-ink/80 px-4 py-3">
@@ -54,7 +54,7 @@ export default function FeaturedWork({ images }: { images: WorkImage[] }) {
       <div className="flex justify-center mt-16">
         <Link
           href="/work"
-          className="inline-flex items-center border border-brass px-8 py-3 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
+          className="inline-flex items-center border border-ivory px-8 py-3 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
         >
           View the full portfolio
         </Link>

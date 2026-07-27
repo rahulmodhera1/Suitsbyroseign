@@ -25,10 +25,11 @@ export default function SectionDivider({ className = "" }: { className?: string 
       >
         <path
           d="M0 4.5H92L110 0.5L128 4.5H220"
-          stroke="var(--brass)"
+          stroke="var(--ivory)"
+          strokeOpacity="0.45"
           strokeWidth="1"
         />
-        <path d="M110 0.5L128 4.5L110 8.5L92 4.5L110 0.5Z" fill="var(--brass)" />
+        <path d="M110 0.5L128 4.5L110 8.5L92 4.5L110 0.5Z" fill="var(--ivory)" />
       </motion.svg>
     </div>
   );

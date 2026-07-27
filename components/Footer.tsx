@@ -10,7 +10,7 @@ const LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-brass/20 mt-32">
+    <footer className="border-t border-ivory/12 mt-32">
       <div className="max-w-4xl mx-auto px-6 py-24 flex flex-col items-center text-center gap-8">
         <Image
           src="/brand/logo-white.png"
@@ -29,7 +29,7 @@ export default function Footer() {
             <Link
               key={link.href}
               href={link.href}
-              className="eyebrow text-ivory hover:text-brass transition-colors duration-300"
+              className="eyebrow text-ivory/75 hover:text-ivory transition-colors duration-300"
             >
               {link.label}
             </Link>
@@ -40,7 +40,7 @@ export default function Footer() {
           href="https://instagram.com/suitsbyroseign"
           target="_blank"
           rel="noopener noreferrer"
-          className="eyebrow text-brass hover:text-ivory transition-colors duration-300"
+          className="eyebrow text-ivory/75 hover:text-ivory transition-colors duration-300"
         >
           @suitsbyroseign
         </a>

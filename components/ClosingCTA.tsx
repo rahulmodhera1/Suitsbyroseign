@@ -20,7 +20,7 @@ export default function ClosingCTA() {
           </h2>
           <Link
             href="/book"
-            className="inline-flex items-center border border-brass px-9 py-3.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
+            className="inline-flex items-center border border-ivory px-9 py-3.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
           >
             Book a fitting
           </Link>

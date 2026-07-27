@@ -37,7 +37,7 @@ export default function Header() {
       />
       <header
         className={`fixed top-0 inset-x-0 z-50 transition-colors duration-500 ease-out ${
-          scrolled ? "bg-ink border-b border-brass/30" : "bg-transparent"
+          scrolled ? "bg-ink border-b border-ivory/15" : "bg-transparent"
         }`}
       >
       <div className="flex items-center justify-between px-6 lg:px-16 h-20">
@@ -57,7 +57,7 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="eyebrow text-ivory hover:text-brass transition-colors duration-300"
+              className="eyebrow text-ivory/75 hover:text-ivory transition-colors duration-300"
             >
               {link.label}
             </Link>
@@ -67,7 +67,7 @@ export default function Header() {
         <div className="hidden md:block">
           <Link
             href="/book"
-            className="inline-flex items-center border border-brass px-6 py-2.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
+            className="inline-flex items-center border border-ivory px-6 py-2.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
           >
             Book a fitting
           </Link>

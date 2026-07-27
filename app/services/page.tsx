@@ -61,7 +61,7 @@ export default function ServicesPage() {
           <ServiceMotionItem key={s.title}>
             <h2 className="font-display text-h3 mb-2">{s.title}</h2>
             <p className="text-body font-light text-ivory/85 leading-relaxed mb-3">{s.body}</p>
-            <p className="eyebrow text-brass">{s.timeline}</p>
+            <p className="eyebrow !text-ivory/50">{s.timeline}</p>
           </ServiceMotionItem>
         ))}
       </RevealGroup>
@@ -75,7 +75,7 @@ export default function ServicesPage() {
         <RevealGroup className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
           {PROCESS.map((p) => (
             <ServiceMotionItem key={p.n}>
-              <span className="font-display text-3xl text-brass">{p.n}</span>
+              <span className="font-display text-3xl text-ivory/35">{p.n}</span>
               <h3 className="text-h3 font-display mt-3 mb-2">{p.title}</h3>
               <p className="text-body font-light text-ivory/85 leading-relaxed">{p.body}</p>
             </ServiceMotionItem>
@@ -89,7 +89,7 @@ export default function ServicesPage() {
         </p>
         <Link
           href="/book"
-          className="inline-flex items-center border border-brass px-9 py-3.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
+          className="inline-flex items-center border border-ivory px-9 py-3.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
         >
           Book a fitting
         </Link>

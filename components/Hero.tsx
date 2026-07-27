@@ -67,12 +67,6 @@ export default function Hero() {
         />
       </div>
 
-      {/* inset frame, echoing the placeholder/editorial framing motif */}
-      <div
-        className="absolute inset-4 sm:inset-8 lg:inset-12 border border-brass/25 pointer-events-none"
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 flex flex-col items-center text-center px-6">
         <motion.div
           className="relative"
@@ -86,7 +80,7 @@ export default function Hero() {
               width: "min(60vw, 640px)",
               height: "min(60vw, 640px)",
               background:
-                "radial-gradient(circle, rgba(169,136,79,0.22) 0%, rgba(169,136,79,0) 68%)",
+                "radial-gradient(circle, rgba(243,243,241,0.14) 0%, rgba(243,243,241,0) 68%)",
             }}
             aria-hidden="true"
           />
@@ -116,9 +110,9 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1, ease: EASE }}
         >
-          <span className="h-px w-8 bg-brass/60" aria-hidden="true" />
+          <span className="h-px w-8 bg-ivory/40" aria-hidden="true" />
           <p className="eyebrow">Mobile fittings across the GTA</p>
-          <span className="h-px w-8 bg-brass/60" aria-hidden="true" />
+          <span className="h-px w-8 bg-ivory/40" aria-hidden="true" />
         </motion.div>
 
         <motion.div
@@ -129,7 +123,7 @@ export default function Hero() {
         >
           <Link
             href="/book"
-            className="inline-flex items-center border border-brass px-10 py-4 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
+            className="inline-flex items-center border border-ivory px-10 py-4 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
           >
             Book a fitting
           </Link>

@@ -44,7 +44,7 @@ export default function Testimonials() {
               aria-label={`Testimonial from ${t.name}`}
               onClick={() => setIndex(i)}
               className={`h-1.5 w-6 transition-colors duration-300 ${
-                i === index ? "bg-brass" : "bg-ivory/20"
+                i === index ? "bg-ivory" : "bg-ivory/20"
               }`}
             />
           ))}

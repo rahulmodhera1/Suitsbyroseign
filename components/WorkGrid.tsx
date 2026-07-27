@@ -78,10 +78,10 @@ export default function WorkGrid({
               blurDataURL={img.blurDataURL}
               loading={i < 6 ? "eager" : "lazy"}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              className="photo w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             />
-            <span
-              className="absolute inset-2 border border-brass/0 group-hover:border-brass/50 transition-colors duration-500 ease-out pointer-events-none"
+            <div
+              className="absolute inset-0 bg-ink/0 group-hover:bg-ink/10 transition-colors duration-500 ease-out pointer-events-none"
               aria-hidden="true"
             />
             <span className="absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out bg-ink/80 px-4 py-3">
@@ -123,7 +123,7 @@ function FilterButton({
       aria-selected={isActive}
       onClick={onClick}
       className={`eyebrow pb-1 border-b transition-colors duration-300 ${
-        isActive ? "text-brass border-brass" : "text-ivory/70 border-transparent hover:text-brass"
+        isActive ? "!text-ivory border-ivory" : "text-ivory/70 border-transparent hover:!text-ivory"
       }`}
     >
       {label}
@@ -213,7 +213,7 @@ function Lightbox({
               type="button"
               onClick={onPrev}
               aria-label="Previous image"
-              className="absolute left-2 sm:left-6 eyebrow text-ivory hover:text-brass p-3"
+              className="absolute left-2 sm:left-6 eyebrow text-ivory hover:text-ivory/60 p-3"
             >
               &#8592;
             </button>
@@ -235,7 +235,7 @@ function Lightbox({
                   placeholder="blur"
                   blurDataURL={img.blurDataURL}
                   sizes="90vw"
-                  className="max-h-[70vh] w-auto object-contain"
+                  className="photo max-h-[70vh] w-auto object-contain"
                   priority
                 />
                 <div className="mt-6 text-center">
@@ -249,7 +249,7 @@ function Lightbox({
               type="button"
               onClick={onNext}
               aria-label="Next image"
-              className="absolute right-2 sm:right-6 eyebrow text-ivory hover:text-brass p-3"
+              className="absolute right-2 sm:right-6 eyebrow text-ivory hover:text-ivory/60 p-3"
             >
               &#8594;
             </button>

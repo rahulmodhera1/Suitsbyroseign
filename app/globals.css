@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #0c0b0a;
-  --ink-raised: #15130f;
-  --ivory: #f2eee7;
-  --brass: #a9884f;
-  --oxblood: #4a1c24;
-  --smoke: #a39c8f;
+  --ink: #0a0a0a;
+  --ink-raised: #161616;
+  --paper: #f3f3f1;
+  --ivory: #f3f3f1;
+  --smoke: #9a9a97;
+  --line: rgba(243, 243, 241, 0.22);
 
   --display: clamp(2.75rem, 9vw, 7.5rem);
   --h2: clamp(1.75rem, 4vw, 3rem);
@@ -26,10 +26,10 @@
 @theme inline {
   --color-ink: var(--ink);
   --color-ink-raised: var(--ink-raised);
+  --color-paper: var(--paper);
   --color-ivory: var(--ivory);
-  --color-brass: var(--brass);
-  --color-oxblood: var(--oxblood);
   --color-smoke: var(--smoke);
+  --color-line: var(--line);
 
   --font-display: var(--font-bodoni);
   --font-sans: var(--font-jost);
@@ -72,7 +72,7 @@ body {
 }
 
 ::selection {
-  background: var(--brass);
+  background: var(--ivory);
   color: var(--ink);
 }
 
@@ -82,7 +82,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--brass);
+  outline: 2px solid var(--ivory);
   outline-offset: 3px;
 }
 
@@ -101,4 +101,11 @@ button {
 
 .measure {
   max-width: 62ch;
+}
+
+/* Every photograph on the site — including the client's own future colour
+   photography — renders desaturated so the whole site reads as one
+   continuous black-and-white editorial, matching the hero film. */
+.photo {
+  filter: grayscale(1) contrast(1.08);
 }

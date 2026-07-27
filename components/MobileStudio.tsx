@@ -29,12 +29,12 @@ const BEATS = [
 export default function MobileStudio() {
   return (
     <section
-      className="bg-oxblood px-6 lg:px-24"
+      className="bg-paper text-ink px-6 lg:px-24"
       style={{ paddingTop: "var(--section-pad)", paddingBottom: "var(--section-pad)" }}
     >
       <div className="max-w-5xl mx-auto">
         <Reveal>
-          <p className="eyebrow text-center">The mobile studio</p>
+          <p className="eyebrow !text-ink/50 text-center">The mobile studio</p>
           <h2 className="font-display text-h2 text-center mt-4 mb-16">
             Seamlessly mobile across the GTA
           </h2>
@@ -43,9 +43,9 @@ export default function MobileStudio() {
         <RevealGroup className="grid sm:grid-cols-2 gap-x-12 gap-y-14">
           {BEATS.map((beat) => (
             <motion.div key={beat.n} variants={revealItem}>
-              <span className="font-display text-3xl text-brass">{beat.n}</span>
+              <span className="font-display text-3xl text-ink/40">{beat.n}</span>
               <h3 className="text-h3 font-display mt-3 mb-2">{beat.title}</h3>
-              <p className="text-body font-light text-ivory/85 leading-relaxed">{beat.body}</p>
+              <p className="text-body font-light text-ink/75 leading-relaxed">{beat.body}</p>
             </motion.div>
           ))}
         </RevealGroup>

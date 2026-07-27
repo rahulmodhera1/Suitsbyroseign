@@ -10,7 +10,7 @@ export default function Statement() {
       <div
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, rgba(169,136,79,0.07) 0%, rgba(169,136,79,0) 70%)",
+          background: "radial-gradient(circle, rgba(243,243,241,0.06) 0%, rgba(243,243,241,0) 70%)",
         }}
         aria-hidden="true"
       />

@@ -1,7 +1,6 @@
-"""Generate richer placeholder imagery: radial-gradient ground, a hairline
-brass frame with tailor's-chalk corner ticks, a large translucent crown
-watermark, and a tracked caps label — so empty gallery slots read as
-considered editorial placeholders rather than broken images.
+"""Generate neutral placeholder imagery: a soft grayscale radial ground, a
+large translucent crown watermark, and a tracked caps label — pure black
+and white, matching the cinematic hero film. No colour, no boxed framing.
 
 Not part of the build pipeline. Run manually:  python3 scripts/make-placeholders.py
 """
@@ -10,10 +9,9 @@ import math
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-INK = (12, 11, 10)
-INK_WARM = (26, 21, 16)  # gradient centre, warm lift off the ground colour
-BRASS = (169, 136, 79)
-IVORY = (242, 238, 231)
+INK = (10, 10, 10)
+INK_LIFT = (28, 28, 28)  # gradient centre, a touch lighter than the ground
+IVORY = (243, 243, 241)
 
 LOGO_SRC = "public/brand/logo-white.png"
 CROWN_BOX = (455, 325, 625, 400)
@@ -40,7 +38,7 @@ def radial_gradient(w, h):
     dist = np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2) / max_r
     dist = np.clip(dist, 0, 1)
     t = dist[..., None]
-    center = np.array(INK_WARM, dtype=np.float32)
+    center = np.array(INK_LIFT, dtype=np.float32)
     edge = np.array(INK, dtype=np.float32)
     rgb = center * (1 - t) + edge * t
     return Image.fromarray(rgb.astype(np.uint8), "RGB")
@@ -63,24 +61,12 @@ def base_ground(w, h, crown):
     # faint vignette
     vignette = Image.new("L", (w, h), 0)
     vd = ImageDraw.Draw(vignette)
-    vd.ellipse([-w * 0.2, -h * 0.25, w * 1.2, h * 1.1], fill=60)
+    vd.ellipse([-w * 0.2, -h * 0.25, w * 1.2, h * 1.1], fill=70)
     vignette = vignette.filter(ImageFilter.GaussianBlur(min(w, h) * 0.12))
     dark = Image.new("RGBA", (w, h), (*INK, 255))
     base = Image.composite(base, dark, vignette)
 
     draw = ImageDraw.Draw(base, "RGBA")
-
-    # hairline frame, inset
-    pad = min(w, h) * 0.055
-    draw.rectangle([pad, pad, w - pad, h - pad], outline=(*BRASS, 130), width=1)
-
-    # tailor's-chalk corner ticks
-    tick = min(w, h) * 0.045
-    gap = pad - min(w, h) * 0.018
-    corners = [(gap, gap, 1, 1), (w - gap, gap, -1, 1), (gap, h - gap, 1, -1), (w - gap, h - gap, -1, -1)]
-    for cx, cy, sx, sy in corners:
-        draw.line([(cx, cy), (cx + tick * sx, cy)], fill=(*BRASS, 200), width=2)
-        draw.line([(cx, cy), (cx, cy + tick * sy)], fill=(*BRASS, 200), width=2)
 
     # large translucent crown watermark, centred — texture only, no text
     wm_scale = min(w, h) * 0.62 / crown.width
@@ -100,7 +86,7 @@ def make_placeholder(w, h, label, crown):
     crisp = crown.resize(
         (max(1, int(crown.width * crisp_scale)), max(1, int(crown.height * crisp_scale))), Image.LANCZOS
     )
-    crisp_alpha = crisp.split()[3].point(lambda a: int(a * 0.8))
+    crisp_alpha = crisp.split()[3].point(lambda a: int(a * 0.85))
     crisp.putalpha(crisp_alpha)
     label_font = font(int(min(w, h) * 0.032))
     rule_y = h * 0.5
@@ -110,16 +96,16 @@ def make_placeholder(w, h, label, crown):
     # rule - label - rule, echoing the logo's own structure
     rule_w = min(w, h) * 0.16
     cx = w / 2
-    draw.line([(cx - rule_w, rule_y), (cx - rule_w * 0.22, rule_y)], fill=(*BRASS, 170), width=1)
-    draw.line([(cx + rule_w * 0.22, rule_y), (cx + rule_w, rule_y)], fill=(*BRASS, 170), width=1)
-    draw.ellipse([cx - 3, rule_y - 3, cx + 3, rule_y + 3], fill=(*BRASS, 200))
+    draw.line([(cx - rule_w, rule_y), (cx - rule_w * 0.22, rule_y)], fill=(*IVORY, 130), width=1)
+    draw.line([(cx + rule_w * 0.22, rule_y), (cx + rule_w, rule_y)], fill=(*IVORY, 130), width=1)
+    draw.ellipse([cx - 2.5, rule_y - 2.5, cx + 2.5, rule_y + 2.5], fill=(*IVORY, 170))
 
     tracked_text(
         draw,
         (0, rule_y + min(w, h) * 0.02),
         label.upper(),
         label_font,
-        (*IVORY, 210),
+        (*IVORY, 220),
         tracking=min(w, h) * 0.012,
         anchor_center_x=cx,
     )
@@ -159,8 +145,6 @@ def main():
 
     # Backgrounds real page copy sits on top of — atmosphere only, no text.
     home = [
-        ("hero.jpg", 2400, 1350),
-        ("hero-mobile.jpg", 1200, 1500),
         ("about-portrait.jpg", 1400, 1750),
         ("process-01.jpg", 1400, 1750),
         ("process-02.jpg", 1400, 1750),

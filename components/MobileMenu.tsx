@@ -80,7 +80,7 @@ export default function MobileMenu({
               <Link
                 href="/book"
                 onClick={onClose}
-                className="inline-flex mt-6 border border-brass px-6 py-2.5 eyebrow text-ivory"
+                className="inline-flex mt-6 border border-ivory px-6 py-2.5 eyebrow text-ivory"
               >
                 Book a fitting
               </Link>

@@ -8,11 +8,11 @@ type Props = AnchorHTMLAttributes<HTMLAnchorElement> & {
 
 export default function Button({ href, variant = "outline", className = "", children, ...rest }: Props) {
   const base =
-    "inline-flex items-center justify-center gap-2 border border-brass px-8 py-3 eyebrow transition-colors duration-300 ease-out";
+    "inline-flex items-center justify-center gap-2 border border-ivory px-8 py-3 eyebrow transition-colors duration-300 ease-out";
   const styles =
     variant === "outline"
       ? "text-ivory hover:bg-ivory hover:text-ink"
-      : "text-brass hover:text-ivory";
+      : "text-ivory/70 hover:text-ivory border-transparent";
 
   return (
     <Link href={href} className={`${base} ${styles} ${className}`} {...rest}>

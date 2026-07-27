@@ -30,7 +30,7 @@ export default function BookPage() {
         {emailConfigured ? (
           <BookingForm />
         ) : (
-          <div className="text-center py-16 border border-brass/30 px-8">
+          <div className="text-center py-16 border border-ivory/25 px-8">
             <p className="font-display text-h3 mb-4">Reach us directly</p>
             <p className="text-body text-ivory/85 mb-8">
               Online booking isn&apos;t connected on this preview. Email us directly and
@@ -38,7 +38,7 @@ export default function BookPage() {
             </p>
             <a
               href="mailto:hello@suitsbyroseign.ca?subject=Fitting%20request"
-              className="inline-flex items-center border border-brass px-9 py-3.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
+              className="inline-flex items-center border border-ivory px-9 py-3.5 eyebrow text-ivory hover:bg-ivory hover:text-ink transition-colors duration-300 ease-out"
             >
               Email us
             </a>
@@ -51,7 +51,7 @@ export default function BookPage() {
             href="https://instagram.com/suitsbyroseign"
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-ivory hover:text-brass transition-colors duration-300"
+            className="block text-ivory hover:text-ivory transition-colors duration-300"
           >
             @suitsbyroseign on Instagram
           </a>
