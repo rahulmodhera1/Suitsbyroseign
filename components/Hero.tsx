@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
-const SPRING = { type: "spring" as const, damping: 1, duration: 0.6 };
+const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
 export default function Hero() {
   const reduced = useReducedMotion();
@@ -75,12 +75,12 @@ export default function Hero() {
             preload="auto"
           />
         )}
-        {/* layered vignette so the logo and copy stay legible over motion */}
+        {/* layered vignette so the wordmark and copy stay legible over motion */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 65% 60% at 50% 46%, rgba(12,11,10,0.28) 0%, rgba(12,11,10,0.62) 68%, rgba(12,11,10,0.88) 100%)",
+              "radial-gradient(ellipse 65% 60% at 50% 46%, rgba(12,11,10,0.32) 0%, rgba(12,11,10,0.66) 68%, rgba(12,11,10,0.9) 100%)",
           }}
         />
         <div
@@ -93,48 +93,23 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 flex flex-col items-center text-center px-6">
-        <motion.div
-          className="relative"
-          initial={reduced ? false : { opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ ...SPRING, delay: 0.25 }}
-        >
-          <div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
-            style={{
-              width: "min(62vw, 680px)",
-              height: "min(62vw, 680px)",
-              background:
-                "radial-gradient(circle, rgba(243,243,241,0.16) 0%, rgba(243,243,241,0) 68%)",
-            }}
-            aria-hidden="true"
-          />
-          <Image
-            src="/brand/logo-white.png"
-            alt="Suits By Roseign — Exceptional Threads"
-            width={1080}
-            height={1080}
-            priority
-            className="relative h-auto mx-auto drop-shadow-[0_4px_36px_rgba(0,0,0,0.6)]"
-            style={{ width: "min(44vw, 360px)", minWidth: "210px" }}
-          />
-        </motion.div>
+        <Wordmark reduced={!!reduced} />
 
         <motion.p
-          className="font-display italic text-2xl sm:text-3xl text-ivory mt-6"
+          className="font-display italic text-2xl sm:text-3xl text-ivory mt-8"
           style={{ letterSpacing: "-0.01em" }}
-          initial={reduced ? false : { opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...SPRING, delay: 0.55 }}
+          initial={reduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.9, ease: EASE_OUT }}
         >
           Effortless elegance, tailored perfection.
         </motion.p>
 
         <motion.div
           className="flex items-center gap-4 mt-10"
-          initial={reduced ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...SPRING, delay: 0.7 }}
+          initial={reduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 2.1, ease: EASE_OUT }}
         >
           <span className="h-px w-8 bg-ivory/40" aria-hidden="true" />
           <p className="eyebrow">Mobile fittings across the GTA</p>
@@ -142,9 +117,9 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          initial={reduced ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...SPRING, delay: 0.85 }}
+          initial={reduced ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 2.25, ease: EASE_OUT }}
           className="mt-10"
         >
           <Link
@@ -156,5 +131,57 @@ export default function Hero() {
         </motion.div>
       </div>
     </section>
+  );
+}
+
+/**
+ * The wordmark, set live in type rather than the logo image — "SUITS BY" in
+ * the geometric sans, "ROSEIGN" in the high-contrast display serif, each
+ * line revealed left to right like ink being laid down, one line after
+ * the other. No bounce, no scale, no separate flourish — just the name
+ * being written.
+ */
+function Wordmark({ reduced }: { reduced: boolean }) {
+  return (
+    <h1 className="relative">
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
+        style={{
+          width: "min(70vw, 760px)",
+          height: "min(70vw, 760px)",
+          background: "radial-gradient(circle, rgba(243,243,241,0.14) 0%, rgba(243,243,241,0) 68%)",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="overflow-hidden">
+        <motion.span
+          className="block font-sans font-medium uppercase text-ivory text-base sm:text-lg"
+          style={{ letterSpacing: "0.5em", textIndent: "0.5em" }}
+          initial={reduced ? false : { clipPath: "inset(0 100% 0 0)" }}
+          animate={{ clipPath: "inset(0 0% 0 0)" }}
+          transition={{ duration: 0.9, delay: 0.2, ease: EASE_OUT }}
+        >
+          Suits By
+        </motion.span>
+      </div>
+
+      <div className="overflow-hidden mt-1 sm:mt-2">
+        <motion.span
+          className="block font-display font-bold uppercase text-ivory leading-none"
+          style={{
+            fontSize: "clamp(3.5rem, 12vw, 9rem)",
+            letterSpacing: "0.02em",
+          }}
+          initial={reduced ? false : { clipPath: "inset(0 100% 0 0)" }}
+          animate={{ clipPath: "inset(0 0% 0 0)" }}
+          transition={{ duration: 1.1, delay: 0.6, ease: EASE_OUT }}
+        >
+          Roseign
+        </motion.span>
+      </div>
+
+      <span className="sr-only"> — Bespoke Tailoring Across the GTA</span>
+    </h1>
   );
 }

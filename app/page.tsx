@@ -20,7 +20,6 @@ export default function Home() {
   return (
     <>
       <JsonLd />
-      <h1 className="sr-only">Suits By Roseign: Bespoke Tailoring Across the GTA</h1>
       <Hero />
       <Statement />
       <MobileStudio />

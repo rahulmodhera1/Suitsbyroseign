@@ -8,7 +8,7 @@ import Grain from "@/components/Grain";
 const bodoni = Bodoni_Moda({
   variable: "--font-bodoni",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "700", "800"],
   style: ["normal", "italic"],
   display: "swap",
 });
@@ -16,7 +16,7 @@ const bodoni = Bodoni_Moda({
 const jost = Jost({
   variable: "--font-jost",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
