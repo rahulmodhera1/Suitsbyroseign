@@ -102,7 +102,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.9, ease: EASE_OUT }}
         >
-          Effortless elegance, tailored perfection.
+          Effortless Elegance, Tailored Perfection.
         </motion.p>
 
         <motion.div
@@ -113,10 +113,10 @@ export default function Hero() {
         >
           <Link
             href="/book"
-            className="group inline-flex items-center gap-5 rounded-full bg-ivory pl-9 pr-3 py-3 eyebrow !text-ink text-sm transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.97]"
+            className="group inline-flex h-16 items-center gap-5 rounded-full bg-ivory pl-9 pr-3 eyebrow !text-ink text-sm transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.97]"
           >
             Book a fitting
-            <span className="flex items-center justify-center w-12 h-12 rounded-full bg-ink text-ivory transition-transform duration-200 ease-out group-hover:translate-x-0.5">
+            <span className="flex items-center justify-center w-11 h-11 rounded-full bg-ink text-ivory transition-transform duration-200 ease-out group-hover:translate-x-0.5">
               <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 8h10M8.5 3.5 13 8l-4.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -125,7 +125,7 @@ export default function Hero() {
 
           <Link
             href="/work"
-            className="inline-flex items-center rounded-full border border-ivory/50 px-9 py-4 eyebrow !text-ivory text-sm transition-[background-color,border-color,transform] duration-200 ease-out hover:bg-ivory/10 hover:border-ivory active:scale-[0.97]"
+            className="inline-flex h-16 items-center justify-center rounded-full border border-ivory/50 px-9 eyebrow !text-ivory text-sm transition-[background-color,border-color,transform] duration-200 ease-out hover:bg-ivory/10 hover:border-ivory active:scale-[0.97]"
           >
             View our work
           </Link>
@@ -137,7 +137,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 2.3, ease: EASE_OUT }}
         >
-          Mobile fittings across the GTA
+          Toronto, Canada
         </motion.p>
       </div>
     </section>

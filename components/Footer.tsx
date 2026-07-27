@@ -20,9 +20,9 @@ export default function Footer() {
           className="h-16 w-16 object-contain opacity-90"
         />
         <p className="font-display italic text-xl text-ivory">
-          Effortless elegance, tailored perfection.
+          Effortless Elegance, Tailored Perfection.
         </p>
-        <p className="eyebrow">Mobile fittings across the GTA</p>
+        <p className="eyebrow">Toronto, Canada</p>
 
         <nav className="flex flex-wrap justify-center gap-8 mt-4" aria-label="Footer">
           {LINKS.map((link) => (
