@@ -37,16 +37,21 @@ export default function Hero() {
     };
     raf = requestAnimationFrame(updateCrop);
 
-    // Plays once; without a loop attribute the browser already holds the
-    // last frame on end, but some browsers briefly blank out — nudging
-    // currentTime back onto the final frame keeps it visibly frozen there.
-    const holdLastFrame = () => {
-      video.currentTime = Math.max(0, video.duration - 0.05);
+    // Plays once and stops on the final frame. Pausing a hair before the
+    // true end (rather than seeking back after "ended" fires) avoids the
+    // forward-then-back flicker some browsers show when they briefly blank
+    // out at the exact end of a clip and get nudged backward to recover.
+    const STOP_MARGIN = 0.15;
+    const stopBeforeEnd = () => {
+      if (video.duration && video.currentTime >= video.duration - STOP_MARGIN) {
+        video.pause();
+        video.removeEventListener("timeupdate", stopBeforeEnd);
+      }
     };
-    video.addEventListener("ended", holdLastFrame);
+    video.addEventListener("timeupdate", stopBeforeEnd);
     return () => {
       cancelAnimationFrame(raf);
-      video.removeEventListener("ended", holdLastFrame);
+      video.removeEventListener("timeupdate", stopBeforeEnd);
     };
   }, [reduced]);
 
@@ -186,7 +191,6 @@ function Wordmark({ reduced }: { reduced: boolean }) {
           style={{
             fontSize: "clamp(4.5rem, 17vw, 13rem)",
             letterSpacing: "-0.01em",
-            textShadow: "0 6px 40px rgba(0,0,0,0.55)",
           }}
           initial={reduced ? false : { clipPath: "inset(0 100% 0 0)" }}
           animate={{ clipPath: "inset(0 0% 0 0)" }}
