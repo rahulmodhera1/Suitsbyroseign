@@ -59,21 +59,22 @@ export default function ProcessSection() {
       className="scroll-mt-32 lg:scroll-mt-40 bg-paper text-ink px-6 lg:px-24"
       style={{ paddingTop: "var(--section-pad)", paddingBottom: "var(--section-pad)" }}
     >
-      <Reveal>
-        <p className="eyebrow !text-ink/50 text-center">The mobile studio</p>
+      <div className="max-w-6xl mx-auto lg:grid lg:grid-cols-[320px_1fr] lg:gap-16 xl:gap-24">
+      <Reveal className="mb-14 lg:mb-0 lg:sticky lg:top-40 lg:self-start">
+        <p className="eyebrow !text-ink/50">The mobile studio</p>
         <h2
-          className="font-display font-bold text-center mt-4 mb-6 leading-[1.05]"
-          style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
+          className="font-display font-bold mt-4 mb-6 leading-[1.05]"
+          style={{ fontSize: "clamp(2.5rem, 3.6vw, 3.75rem)" }}
         >
           We Come To You
         </h2>
-        <p className="text-body font-light text-ink/60 text-center measure mx-auto mb-24">
+        <p className="text-body font-light text-ink/60 leading-relaxed max-w-sm">
           The whole commission happens wherever you are — home, office, or venue. No showroom
           visits, no lost afternoons.
         </p>
       </Reveal>
 
-      <div ref={containerRef} className="relative max-w-3xl mx-auto">
+      <div ref={containerRef} className="relative">
         <div
           className="absolute left-5 sm:left-6 top-2 bottom-2 w-px bg-ink/12"
           aria-hidden="true"
@@ -111,6 +112,7 @@ export default function ProcessSection() {
             </div>
           </motion.div>
         ))}
+      </div>
       </div>
     </section>
   );

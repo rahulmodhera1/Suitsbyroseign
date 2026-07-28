@@ -51,40 +51,35 @@ export default function WorkGrid({
         ))}
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
-        {filtered.map((img, i) => {
-          const isWide = i === 0 && img.featured;
-          return (
-            <button
-              key={img.src}
-              type="button"
-              onClick={() => setLightboxIndex(i)}
-              className={`group relative block overflow-hidden text-left ${
-                isWide ? "col-span-2 aspect-[16/10]" : "aspect-[4/5]"
-              }`}
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                placeholder="blur"
-                blurDataURL={img.blurDataURL}
-                loading={i < 6 ? "eager" : "lazy"}
-                sizes={isWide ? "100vw" : "(max-width: 768px) 50vw, 33vw"}
-                className="photo object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-              />
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/0 to-transparent transition-opacity duration-500 ease-out group-hover:from-ink/90"
-                aria-hidden="true"
-              />
-              <span className="absolute inset-x-0 bottom-0 p-4 lg:p-6">
-                <span className={`eyebrow !text-ivory block ${isWide ? "text-sm" : ""}`}>
-                  {CATEGORY_LABELS[img.category] ?? img.category}
-                </span>
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-6">
+        {filtered.map((img, i) => (
+          <button
+            key={img.src}
+            type="button"
+            onClick={() => setLightboxIndex(i)}
+            className="group relative block overflow-hidden text-left aspect-[4/5]"
+          >
+            <Image
+              src={img.src}
+              alt={img.alt}
+              fill
+              placeholder="blur"
+              blurDataURL={img.blurDataURL}
+              loading={i < 6 ? "eager" : "lazy"}
+              sizes="(max-width: 640px) 33vw, (max-width: 1024px) 33vw, 25vw"
+              className="photo object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/0 to-transparent transition-opacity duration-500 ease-out group-hover:from-ink/90"
+              aria-hidden="true"
+            />
+            <span className="absolute inset-x-0 bottom-0 p-2 sm:p-4 lg:p-6">
+              <span className="eyebrow !text-ivory block !text-[9px] sm:!text-[11px]">
+                {CATEGORY_LABELS[img.category] ?? img.category}
               </span>
-            </button>
-          );
-        })}
+            </span>
+          </button>
+        ))}
       </div>
 
       {filtered.length === 0 && (

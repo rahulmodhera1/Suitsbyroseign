@@ -56,17 +56,25 @@ export default function ServicesSection() {
       className="scroll-mt-32 lg:scroll-mt-40 px-6 lg:px-24"
       style={{ paddingTop: "var(--section-pad)", paddingBottom: "var(--section-pad)" }}
     >
-      <Reveal>
-        <p className="eyebrow text-center">What we tailor</p>
+      <div className="max-w-6xl mx-auto lg:grid lg:grid-cols-[320px_1fr] lg:gap-16 xl:gap-24">
+      <Reveal className="mb-14 lg:mb-0 lg:sticky lg:top-40 lg:self-start">
+        <p className="eyebrow">What we tailor</p>
         <h2
-          className="font-display font-bold text-center mt-4 mb-20 leading-[1.05]"
-          style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
+          className="font-display font-bold mt-4 mb-6 leading-[1.05]"
+          style={{ fontSize: "clamp(2.5rem, 3.6vw, 3.75rem)" }}
         >
           Services
         </h2>
+        <p className="text-body font-light text-ivory/60 leading-relaxed mb-10 max-w-sm">
+          Six ways we build a suit, each one quoted after a proper consultation, never off a
+          price list.
+        </p>
+        <Button href={CALENDLY_URL} external>
+          Book a fitting
+        </Button>
       </Reveal>
 
-      <div className="max-w-4xl mx-auto border-t border-ivory/15">
+      <div className="border-t border-ivory/15">
         {SERVICES.map((service, i) => {
           const isOpen = open === i;
           return (
@@ -142,17 +150,7 @@ export default function ServicesSection() {
           );
         })}
       </div>
-
-      <Reveal delay={0.1}>
-        <div className="flex flex-col items-center gap-8 mt-20">
-          <p className="font-display italic text-xl sm:text-2xl text-ivory text-center">
-            Every commission is quoted after the consultation.
-          </p>
-          <Button href={CALENDLY_URL} external>
-            Book a fitting
-          </Button>
-        </div>
-      </Reveal>
+      </div>
     </section>
   );
 }
