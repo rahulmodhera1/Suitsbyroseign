@@ -66,16 +66,14 @@ export default function ServicesSection() {
         backgroundPosition: "center",
       }}
     >
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 75% 70% at 50% 45%, rgba(243,243,241,0.94) 0%, rgba(243,243,241,0.88) 35%, rgba(243,243,241,0.6) 65%, rgba(243,243,241,0.22) 100%)",
-        }}
-        aria-hidden="true"
-      />
+      <div className="relative max-w-[1800px] mx-auto">
+        <div
+          className="absolute -inset-x-8 -inset-y-12 sm:-inset-x-14 sm:-inset-y-16 bg-paper"
+          style={{ filter: "blur(48px)" }}
+          aria-hidden="true"
+        />
 
-      <div className="relative max-w-[1800px] mx-auto lg:grid lg:grid-cols-[320px_1fr] lg:gap-16 xl:gap-24">
+        <div className="relative lg:grid lg:grid-cols-[320px_1fr] lg:gap-16 xl:gap-24">
       <Reveal className="mb-14 lg:mb-0 lg:sticky lg:top-32 lg:self-start">
         <p className="eyebrow !text-ink/50">What we tailor</p>
         <h2
@@ -161,6 +159,7 @@ export default function ServicesSection() {
           );
         })}
       </div>
+        </div>
       </div>
     </section>
   );
