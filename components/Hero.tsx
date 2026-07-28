@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Button from "./Button";
 import { CALENDLY_URL } from "@/lib/site";
@@ -10,51 +9,6 @@ const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
 export default function Hero() {
   const reduced = useReducedMotion();
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || reduced) return;
-
-    // The opening shot itself is framed slightly left of true centre and
-    // settles into place by about a second in. Nudge the crop window right
-    // to compensate only for that opening beat, easing back to a plain
-    // centred crop as the shot self-corrects — later scenes are untouched.
-    const CORRECTION_WINDOW = 1;
-    const START_POSITION = 47.3;
-    const DEFAULT_POSITION = 50;
-    let raf = 0;
-
-    const updateCrop = () => {
-      const t = video.currentTime;
-      if (t < CORRECTION_WINDOW) {
-        const progress = t / CORRECTION_WINDOW;
-        const x = START_POSITION + (DEFAULT_POSITION - START_POSITION) * progress;
-        video.style.objectPosition = `${x}% center`;
-        raf = requestAnimationFrame(updateCrop);
-      } else {
-        video.style.objectPosition = `${DEFAULT_POSITION}% center`;
-      }
-    };
-    raf = requestAnimationFrame(updateCrop);
-
-    // Plays once and stops on the final frame. Pausing a hair before the
-    // true end (rather than seeking back after "ended" fires) avoids the
-    // forward-then-back flicker some browsers show when they briefly blank
-    // out at the exact end of a clip and get nudged backward to recover.
-    const STOP_MARGIN = 0.15;
-    const stopBeforeEnd = () => {
-      if (video.duration && video.currentTime >= video.duration - STOP_MARGIN) {
-        video.pause();
-        video.removeEventListener("timeupdate", stopBeforeEnd);
-      }
-    };
-    video.addEventListener("timeupdate", stopBeforeEnd);
-    return () => {
-      cancelAnimationFrame(raf);
-      video.removeEventListener("timeupdate", stopBeforeEnd);
-    };
-  }, [reduced]);
 
   return (
     <section className="relative min-h-[100svh] w-full overflow-hidden flex items-center justify-center py-32">
@@ -70,12 +24,14 @@ export default function Hero() {
             className="object-cover"
           />
         ) : (
+          // A purpose-cut loop: it runs continuously rather than playing once
+          // and freezing, so the hero never settles into a still frame.
           <video
-            ref={videoRef}
             className="absolute inset-0 w-full h-full object-cover object-center"
-            src="/home/Hero_animation.mp4"
+            src="/home/HERO_LOOP.mp4"
             poster="/home/hero-poster.jpg"
             autoPlay
+            loop
             muted
             playsInline
             preload="auto"
