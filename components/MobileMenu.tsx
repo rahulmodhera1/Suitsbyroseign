@@ -19,6 +19,15 @@ export default function MobileMenu({
 }) {
   const reduced = useReducedMotion();
 
+  const handleLinkClick = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    document.body.style.overflow = "";
+    onClose();
+    requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+    });
+  };
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -65,7 +74,7 @@ export default function MobileMenu({
               >
                 <a
                   href={`#${link.id}`}
-                  onClick={onClose}
+                  onClick={handleLinkClick(link.id)}
                   className="font-display text-5xl py-3 block text-ivory"
                 >
                   {link.label}

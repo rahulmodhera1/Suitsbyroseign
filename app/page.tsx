@@ -1,5 +1,4 @@
 import Hero from "@/components/Hero";
-import Statement from "@/components/Statement";
 import WorkSection from "@/components/WorkSection";
 import ServicesSection from "@/components/ServicesSection";
 import ProcessSection from "@/components/ProcessSection";
@@ -13,7 +12,6 @@ export default function Home() {
     <>
       <JsonLd />
       <Hero />
-      <Statement />
       <WorkSection />
       <ServicesSection />
       <ProcessSection />

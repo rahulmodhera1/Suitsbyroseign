@@ -11,7 +11,7 @@ export default function WorkSection() {
     <section
       id="work"
       className="scroll-mt-32 lg:scroll-mt-40 px-6 lg:px-24"
-      style={{ paddingTop: "var(--section-pad)", paddingBottom: "var(--section-pad)" }}
+      style={{ paddingTop: "clamp(3.5rem, 8vh, 6rem)", paddingBottom: "var(--section-pad)" }}
     >
       <Reveal>
         <p className="eyebrow text-center">The portfolio</p>
