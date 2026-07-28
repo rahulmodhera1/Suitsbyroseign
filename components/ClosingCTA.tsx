@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Reveal } from "./Reveal";
 import Button from "./Button";
 import { CALENDLY_URL, INSTAGRAM_URL } from "@/lib/site";
@@ -17,24 +18,14 @@ export default function ClosingCTA() {
           aria-hidden="true"
         />
 
-        <svg
-          viewBox="0 0 200 150"
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] sm:w-[560px] lg:w-[680px] h-auto text-ivory/[0.07] pointer-events-none"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1"
+        <Image
+          src="/brand/crown-mark.png"
+          alt=""
+          width={1008}
+          height={592}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[420px] lg:w-[520px] h-auto opacity-[0.09] pointer-events-none"
           aria-hidden="true"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M30 110 18 40l34 28 18-38 18 38 34-28-12 70Z"
-          />
-          <path strokeLinecap="round" d="M28 118h144" />
-          <circle cx="100" cy="18" r="4" />
-          <circle cx="18" cy="40" r="3" />
-          <circle cx="182" cy="40" r="3" />
-        </svg>
+        />
 
         <Reveal>
           <p className="eyebrow">Book a fitting</p>
