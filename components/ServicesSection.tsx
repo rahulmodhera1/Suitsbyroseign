@@ -56,7 +56,7 @@ export default function ServicesSection() {
       className="scroll-mt-32 lg:scroll-mt-40 px-6 lg:px-24"
       style={{ paddingTop: "var(--section-pad)", paddingBottom: "var(--section-pad)" }}
     >
-      <div className="max-w-6xl mx-auto lg:grid lg:grid-cols-[320px_1fr] lg:gap-16 xl:gap-24">
+      <div className="max-w-[1800px] mx-auto lg:grid lg:grid-cols-[320px_1fr] lg:gap-16 xl:gap-24">
       <Reveal className="mb-14 lg:mb-0 lg:sticky lg:top-40 lg:self-start">
         <p className="eyebrow">What we tailor</p>
         <h2
