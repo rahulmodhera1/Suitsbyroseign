@@ -1,33 +1,59 @@
+"use client";
+
 import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import Button from "./Button";
 import { CALENDLY_URL, INSTAGRAM_URL } from "@/lib/site";
 
+const EASE_OUT = [0.23, 1, 0.32, 1] as const;
+
 export default function ClosingCTA() {
+  const reduced = useReducedMotion();
+
   return (
     <section
       id="book"
       className="scroll-mt-24 lg:scroll-mt-32 relative isolate overflow-hidden bg-ink"
     >
-      <div className="relative min-h-[70vh] flex flex-col items-center justify-center text-center px-6 py-24">
+      <div className="relative flex flex-col items-center justify-center text-center px-6 pt-24 lg:pt-28 pb-14 lg:pb-16">
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[820px] h-[820px] max-w-[130vw] max-h-[130vw] rounded-full pointer-events-none"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(243,243,241,0.08) 0%, rgba(243,243,241,0) 70%)",
+            background:
+              "radial-gradient(ellipse 70% 85% at 50% 18%, rgba(243,243,241,0.1) 0%, rgba(243,243,241,0.045) 45%, rgba(243,243,241,0) 90%)",
           }}
           aria-hidden="true"
         />
 
-        <Image
-          src="/brand/crown-mark.png"
-          alt=""
-          width={1008}
-          height={592}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[420px] lg:w-[520px] h-auto opacity-[0.09] pointer-events-none"
-          aria-hidden="true"
-        />
-
         <Reveal>
+          {/* The crown reads as a crest here — crisp and small, flanked by
+              hairlines, echoing how it sits above the wordmark in the logo. */}
+          <div className="flex items-center justify-center gap-5 sm:gap-7 mb-10">
+            <motion.span
+              className="h-px w-12 sm:w-20 bg-ivory/30 origin-right"
+              initial={reduced ? false : { scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: "-15% 0px" }}
+              transition={{ duration: 0.9, ease: EASE_OUT }}
+            />
+            <Image
+              src="/brand/crown-mark.png"
+              alt=""
+              width={1008}
+              height={592}
+              className="w-10 sm:w-12 h-auto"
+              aria-hidden="true"
+            />
+            <motion.span
+              className="h-px w-12 sm:w-20 bg-ivory/30 origin-left"
+              initial={reduced ? false : { scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, margin: "-15% 0px" }}
+              transition={{ duration: 0.9, ease: EASE_OUT }}
+            />
+          </div>
+
           <p className="eyebrow">Book a fitting</p>
           <h2
             className="font-display font-bold text-ivory mt-4 mb-6 leading-[1.05]"
