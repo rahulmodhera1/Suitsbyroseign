@@ -50,7 +50,7 @@ function GridVideo({ item, reduced }: { item: WorkItem; reduced: boolean }) {
       muted
       playsInline
       preload="none"
-      className="photo absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
     />
   );
 }
@@ -118,7 +118,7 @@ export default function WorkGrid({
                 blurDataURL={img.blurDataURL}
                 loading={i < 6 ? "eager" : "lazy"}
                 sizes="(max-width: 640px) 33vw, (max-width: 1024px) 33vw, 25vw"
-                className="photo object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
               />
             )}
             <div
@@ -282,7 +282,7 @@ function Lightbox({
                     muted
                     playsInline
                     controls
-                    className="photo max-h-[70vh] w-auto object-contain"
+                    className="max-h-[70vh] w-auto object-contain"
                   />
                 ) : (
                   <Image
@@ -293,7 +293,7 @@ function Lightbox({
                     placeholder="blur"
                     blurDataURL={img.blurDataURL}
                     sizes="90vw"
-                    className="photo max-h-[70vh] w-auto object-contain"
+                    className="max-h-[70vh] w-auto object-contain"
                     priority
                   />
                 )}

@@ -108,9 +108,10 @@ button {
   max-width: 62ch;
 }
 
-/* Every photograph on the site — including the client's own future colour
-   photography — renders desaturated so the whole site reads as one
-   continuous black-and-white editorial, matching the hero film. */
+/* Desaturates supporting imagery so it sits alongside the black-and-white
+   hero film. The portfolio grid deliberately opts out: the cloth's real
+   colour is the whole point of showing the work, and a client choosing
+   between a midnight blue and a charcoal cannot do it in greyscale. */
 .photo {
   filter: grayscale(1) contrast(1.08);
 }
