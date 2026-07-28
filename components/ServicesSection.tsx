@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
 import Button from "./Button";
 import { CALENDLY_URL } from "@/lib/site";
@@ -52,6 +52,7 @@ const TEXTURE_URL =
 
 export default function ServicesSection() {
   const [open, setOpen] = useState(0);
+  const reduced = useReducedMotion();
 
   return (
     <section
@@ -103,7 +104,7 @@ export default function ServicesSection() {
             <motion.div
               key={service.title}
               className="group relative border-b border-ink/15 transition-colors duration-500"
-              initial={{ opacity: 0, y: 20 }}
+              initial={reduced ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10% 0px" }}
               transition={{ duration: 0.7, delay: i * 0.05, ease: EASE_OUT }}

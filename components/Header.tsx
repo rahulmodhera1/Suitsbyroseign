@@ -29,18 +29,24 @@ export default function Header() {
         aria-hidden="true"
         style={{ pointerEvents: "none" }}
       />
+      {/*
+        The header's own size stays constant on scroll — only its background
+        (color + blur) toggles. Those two properties don't affect layout, so
+        they're cheap to animate. Previously height, logo size, nav gap, font
+        size and button padding all transitioned together on scroll, which
+        forced a layout reflow on every frame of a 500ms transition inside a
+        `position: fixed` + `backdrop-filter` element — the combination that
+        caused the header to visibly stutter/redraw incompletely on scroll,
+        especially on mobile.
+      */}
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500 ease-out ${
+        className={`fixed top-0 inset-x-0 z-50 transition-[background-color,border-color] duration-300 ease-out ${
           scrolled
-            ? "bg-ink/70 backdrop-blur-md border-b border-ivory/12"
+            ? "bg-ink/80 backdrop-blur-md border-b border-ivory/12"
             : "bg-transparent border-b border-transparent"
         }`}
       >
-        <div
-          className={`flex items-center justify-between px-6 lg:px-16 transition-[height] duration-500 ease-out ${
-            scrolled ? "h-20 lg:h-24" : "h-32 lg:h-40"
-          }`}
-        >
+        <div className="flex items-center justify-between px-6 lg:px-16 h-24 lg:h-28">
           <Link
             href="/"
             className="flex items-center transition-transform duration-150 ease-out active:scale-[0.97]"
@@ -52,25 +58,16 @@ export default function Header() {
               width={340}
               height={340}
               priority
-              className={`w-auto object-contain transition-[height] duration-500 ease-out ${
-                scrolled ? "h-14 sm:h-16 lg:h-[4.5rem]" : "h-24 sm:h-28 lg:h-32"
-              }`}
+              className="h-16 lg:h-20 w-auto object-contain"
             />
           </Link>
 
-          <nav
-            className={`hidden md:flex items-center transition-[gap] duration-500 ease-out ${
-              scrolled ? "gap-9" : "gap-12"
-            }`}
-            aria-label="Primary"
-          >
+          <nav className="hidden md:flex items-center gap-5 lg:gap-10" aria-label="Primary">
             {SECTIONS.map((section) => (
               <a
                 key={section.id}
                 href={`#${section.id}`}
-                className={`font-sans font-medium uppercase tracking-[0.18em] text-ivory/75 hover:text-ivory transition-[color,font-size] duration-300 ${
-                  scrolled ? "text-sm lg:text-base" : "text-base lg:text-lg"
-                }`}
+                className="font-sans font-medium uppercase text-base tracking-[0.18em] text-ivory/75 hover:text-ivory transition-colors duration-300"
               >
                 {section.label}
               </a>
@@ -79,9 +76,7 @@ export default function Header() {
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center bg-ivory eyebrow !text-ink text-base transition-[transform,padding] duration-500 ease-out hover:scale-[1.02] active:scale-[0.97] ${
-                scrolled ? "px-8 py-3" : "px-10 py-4"
-              }`}
+              className="inline-flex items-center whitespace-nowrap bg-ivory px-5 lg:px-9 py-3.5 eyebrow !text-ink text-base transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.97]"
             >
               Book a fitting
             </a>

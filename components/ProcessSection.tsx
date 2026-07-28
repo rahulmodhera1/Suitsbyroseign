@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { Reveal } from "./Reveal";
 
 const STEPS = [
@@ -47,6 +47,7 @@ const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
 export default function ProcessSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 0.8", "end 0.55"],
@@ -89,7 +90,7 @@ export default function ProcessSection() {
           <motion.div
             key={step.n}
             className="group relative flex gap-6 sm:gap-10 pb-16 last:pb-0"
-            initial={{ opacity: 0, y: 24 }}
+            initial={reduced ? false : { opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-15% 0px" }}
             transition={{ duration: 0.7, delay: i * 0.05, ease: EASE_OUT }}
