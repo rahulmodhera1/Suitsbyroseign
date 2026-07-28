@@ -18,9 +18,10 @@ export default function ClosingCTA() {
     >
       <div className="relative flex flex-col items-center justify-center text-center px-6 pt-24 lg:pt-28 pb-14 lg:pb-16">
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] max-w-[140vw] max-h-[140vw] rounded-full pointer-events-none"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            background: "radial-gradient(circle, rgba(243,243,241,0.07) 0%, rgba(243,243,241,0) 70%)",
+            background:
+              "radial-gradient(ellipse 70% 85% at 50% 18%, rgba(243,243,241,0.1) 0%, rgba(243,243,241,0.045) 45%, rgba(243,243,241,0) 90%)",
           }}
           aria-hidden="true"
         />
