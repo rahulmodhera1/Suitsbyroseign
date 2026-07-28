@@ -60,7 +60,7 @@ function GridVideo({ item, reduced, mono }: { item: WorkItem; reduced: boolean; 
       muted
       playsInline
       preload="none"
-      className={`${toneClass(mono)} absolute inset-0 w-full h-full object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-[1.05]`}
+      className={`${toneClass(mono)} absolute inset-0 w-full h-full object-cover tone-shift group-hover:scale-[1.05]`}
     />
   );
 }
@@ -184,7 +184,7 @@ export default function WorkGrid({
                 blurDataURL={img.blurDataURL}
                 loading={i < 6 ? "eager" : "lazy"}
                 sizes="(max-width: 640px) 33vw, (max-width: 1024px) 33vw, 25vw"
-                className={`${toneClass(mono)} object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-[1.05]`}
+                className={`${toneClass(mono)} object-cover tone-shift group-hover:scale-[1.05]`}
               />
             )}
             <div
@@ -384,7 +384,7 @@ function Lightbox({
                     muted
                     playsInline
                     controls
-                    className={`${toneClass(mono)} max-h-[70vh] w-auto object-contain transition-[filter] duration-500 ease-out`}
+                    className={`${toneClass(mono)} max-h-[70vh] w-auto object-contain tone-shift`}
                   />
                 ) : (
                   <Image
@@ -395,7 +395,7 @@ function Lightbox({
                     placeholder="blur"
                     blurDataURL={img.blurDataURL}
                     sizes="90vw"
-                    className={`${toneClass(mono)} max-h-[70vh] w-auto object-contain transition-[filter] duration-500 ease-out`}
+                    className={`${toneClass(mono)} max-h-[70vh] w-auto object-contain tone-shift`}
                     priority
                   />
                 )}

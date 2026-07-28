@@ -115,3 +115,14 @@ button {
 .photo {
   filter: grayscale(1) contrast(1.08);
 }
+
+/* Carries the portfolio between mono and colour. Filter and transform need
+   separate durations here: the tone change is a slow bloom, while the hover
+   lift on the same element has to stay responsive. A single `transition`
+   shorthand — or Tailwind's transition-[filter,transform] with one duration
+   — would force the two to share a speed and make hovering feel sluggish. */
+.tone-shift {
+  transition-property: filter, transform;
+  transition-duration: 1600ms, 700ms;
+  transition-timing-function: ease-in-out, var(--ease-out);
+}
