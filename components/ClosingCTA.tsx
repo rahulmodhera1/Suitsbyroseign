@@ -5,7 +5,7 @@ import { CALENDLY_URL, INSTAGRAM_URL } from "@/lib/site";
 
 export default function ClosingCTA() {
   return (
-    <section id="book" className="scroll-mt-32 lg:scroll-mt-40 relative isolate overflow-hidden">
+    <section id="book" className="scroll-mt-24 lg:scroll-mt-32 relative isolate overflow-hidden">
       <div className="relative min-h-[70vh] flex flex-col items-center justify-center text-center px-6 py-24">
         <Image
           src="/home/process-04.jpg"

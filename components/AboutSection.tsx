@@ -8,7 +8,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative scroll-mt-32 lg:scroll-mt-40 px-6 lg:px-24 overflow-hidden"
+      className="relative scroll-mt-24 lg:scroll-mt-32 px-6 lg:px-24 overflow-hidden"
       style={{
         paddingTop: "var(--section-pad)",
         paddingBottom: "var(--section-pad)",

@@ -56,7 +56,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="relative scroll-mt-32 lg:scroll-mt-40 px-6 lg:px-24 text-ink overflow-hidden"
+      className="relative scroll-mt-24 lg:scroll-mt-32 px-6 lg:px-24 text-ink"
       style={{
         paddingTop: "var(--section-pad)",
         paddingBottom: "var(--section-pad)",
@@ -76,7 +76,7 @@ export default function ServicesSection() {
       />
 
       <div className="relative max-w-[1800px] mx-auto lg:grid lg:grid-cols-[320px_1fr] lg:gap-16 xl:gap-24">
-      <Reveal className="mb-14 lg:mb-0 lg:sticky lg:top-40 lg:self-start">
+      <Reveal className="mb-14 lg:mb-0 lg:sticky lg:top-32 lg:self-start">
         <p className="eyebrow !text-ink/50">What we tailor</p>
         <h2
           className="font-display font-bold mt-4 mb-6 leading-[1.05]"
@@ -99,20 +99,12 @@ export default function ServicesSection() {
           return (
             <motion.div
               key={service.title}
-              className="group relative border-b border-ink/15 overflow-hidden transition-colors duration-500"
+              className="group relative border-b border-ink/15 transition-colors duration-500"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10% 0px" }}
               transition={{ duration: 0.7, delay: i * 0.05, ease: EASE_OUT }}
             >
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -top-3 right-0 select-none font-display font-bold leading-none text-ink/[0.06] transition-colors duration-500 group-hover:text-ink/[0.1]"
-                style={{ fontSize: "clamp(6rem, 12vw, 10rem)" }}
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-
               <button
                 type="button"
                 onClick={() => setOpen(isOpen ? -1 : i)}

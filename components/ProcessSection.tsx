@@ -56,11 +56,11 @@ export default function ProcessSection() {
   return (
     <section
       id="process"
-      className="scroll-mt-32 lg:scroll-mt-40 bg-paper text-ink px-6 lg:px-24"
+      className="scroll-mt-24 lg:scroll-mt-32 bg-paper text-ink px-6 lg:px-24"
       style={{ paddingTop: "var(--section-pad)", paddingBottom: "var(--section-pad)" }}
     >
       <div className="max-w-[1800px] mx-auto lg:grid lg:grid-cols-[320px_1fr] lg:gap-16 xl:gap-24">
-      <Reveal className="mb-14 lg:mb-0 lg:sticky lg:top-40 lg:self-start">
+      <Reveal className="mb-14 lg:mb-0 lg:sticky lg:top-32 lg:self-start">
         <p className="eyebrow !text-ink/50">The mobile studio</p>
         <h2
           className="font-display font-bold mt-4 mb-6 leading-[1.05]"

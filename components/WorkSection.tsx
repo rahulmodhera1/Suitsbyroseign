@@ -10,7 +10,7 @@ export default function WorkSection() {
   return (
     <section
       id="work"
-      className="scroll-mt-32 lg:scroll-mt-40 px-6 lg:px-24"
+      className="scroll-mt-24 lg:scroll-mt-32 px-6 lg:px-24"
       style={{ paddingTop: "clamp(3.5rem, 8vh, 6rem)", paddingBottom: "var(--section-pad)" }}
     >
       <Reveal>

@@ -36,7 +36,11 @@ export default function Header() {
             : "bg-transparent border-b border-transparent"
         }`}
       >
-        <div className="flex items-center justify-between px-6 lg:px-16 h-32 lg:h-40">
+        <div
+          className={`flex items-center justify-between px-6 lg:px-16 transition-[height] duration-500 ease-out ${
+            scrolled ? "h-20 lg:h-24" : "h-32 lg:h-40"
+          }`}
+        >
           <Link
             href="/"
             className="flex items-center transition-transform duration-150 ease-out active:scale-[0.97]"
@@ -48,16 +52,25 @@ export default function Header() {
               width={340}
               height={340}
               priority
-              className="h-24 sm:h-28 lg:h-32 w-auto object-contain"
+              className={`w-auto object-contain transition-[height] duration-500 ease-out ${
+                scrolled ? "h-14 sm:h-16 lg:h-[4.5rem]" : "h-24 sm:h-28 lg:h-32"
+              }`}
             />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-12" aria-label="Primary">
+          <nav
+            className={`hidden md:flex items-center transition-[gap] duration-500 ease-out ${
+              scrolled ? "gap-9" : "gap-12"
+            }`}
+            aria-label="Primary"
+          >
             {SECTIONS.map((section) => (
               <a
                 key={section.id}
                 href={`#${section.id}`}
-                className="font-sans font-medium uppercase text-base lg:text-lg tracking-[0.18em] text-ivory/75 hover:text-ivory transition-colors duration-300"
+                className={`font-sans font-medium uppercase tracking-[0.18em] text-ivory/75 hover:text-ivory transition-[color,font-size] duration-300 ${
+                  scrolled ? "text-sm lg:text-base" : "text-base lg:text-lg"
+                }`}
               >
                 {section.label}
               </a>
@@ -66,7 +79,9 @@ export default function Header() {
               href={CALENDLY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center bg-ivory px-10 py-4 eyebrow !text-ink text-base transition-transform duration-200 ease-out hover:scale-[1.02] active:scale-[0.97]"
+              className={`inline-flex items-center bg-ivory eyebrow !text-ink text-base transition-[transform,padding] duration-500 ease-out hover:scale-[1.02] active:scale-[0.97] ${
+                scrolled ? "px-8 py-3" : "px-10 py-4"
+              }`}
             >
               Book a fitting
             </a>

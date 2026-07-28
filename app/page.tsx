@@ -16,8 +16,8 @@ export default function Home() {
       <ServicesSection />
       <ProcessSection />
       <AboutSection />
-      <Testimonials />
       <ClosingCTA />
+      <Testimonials />
     </>
   );
 }
