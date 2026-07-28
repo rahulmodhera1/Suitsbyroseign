@@ -56,7 +56,12 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="relative scroll-mt-24 lg:scroll-mt-32 px-6 lg:px-24 text-ink"
+      // overflow-x-clip, not overflow-hidden: the paper backdrop below is
+      // deliberately wider than the section and would otherwise widen the page
+      // on narrow screens. `clip` contains it without creating a scrollport,
+      // which is what `hidden` does — and a scrollport here would strand the
+      // sticky heading, since sticky resolves against the nearest one.
+      className="relative scroll-mt-24 lg:scroll-mt-32 px-6 lg:px-24 text-ink overflow-x-clip"
       style={{
         paddingTop: "var(--section-pad)",
         paddingBottom: "var(--section-pad)",

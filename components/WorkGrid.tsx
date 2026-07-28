@@ -16,7 +16,17 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  * attribute so that a grid of clips only fetches the ones actually on screen
  * — with `preload="none"`, nothing downloads until the tile is scrolled to.
  */
-function GridVideo({ item, reduced }: { item: WorkItem; reduced: boolean }) {
+/**
+ * `.photo` is the site-wide desaturation rule. Toggling it per-element here
+ * rather than in the stylesheet lets one control retone the whole grid.
+ * Callers own the transition, since the grid animates transform alongside
+ * filter and the two must share a single transition-property declaration.
+ */
+function toneClass(mono: boolean) {
+  return mono ? "photo" : "";
+}
+
+function GridVideo({ item, reduced, mono }: { item: WorkItem; reduced: boolean; mono: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -50,7 +60,7 @@ function GridVideo({ item, reduced }: { item: WorkItem; reduced: boolean }) {
       muted
       playsInline
       preload="none"
-      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+      className={`${toneClass(mono)} absolute inset-0 w-full h-full object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-[1.05]`}
     />
   );
 }
@@ -66,6 +76,9 @@ export default function WorkGrid({
   // one-page layout, so filtering must not push history or move the scroll.
   const [active, setActive] = useState("all");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  // Colour is the default: the cloth is the product. Black and white is the
+  // house look, so the toggle offers it rather than imposing it.
+  const [mono, setMono] = useState(false);
   const reduced = useReducedMotion();
 
   const filtered = useMemo(
@@ -87,16 +100,29 @@ export default function WorkGrid({
 
   return (
     <div>
-      <div className="flex flex-wrap gap-x-8 gap-y-3 justify-center mb-16" role="tablist" aria-label="Filter by category">
-        <FilterButton label="All" isActive={active === "all"} onClick={() => setCategory("all")} />
-        {categories.map((cat) => (
-          <FilterButton
-            key={cat}
-            label={CATEGORY_LABELS[cat] ?? cat}
-            isActive={active === cat}
-            onClick={() => setCategory(cat)}
-          />
-        ))}
+      {/* The filters stay optically centred on the section; the tone toggle is
+          pulled out to the right on wide screens and drops below on narrow
+          ones, where there is no room beside them. */}
+      <div className="relative mb-16">
+        <div
+          className="flex flex-wrap gap-x-8 gap-y-3 justify-center"
+          role="tablist"
+          aria-label="Filter by category"
+        >
+          <FilterButton label="All" isActive={active === "all"} onClick={() => setCategory("all")} />
+          {categories.map((cat) => (
+            <FilterButton
+              key={cat}
+              label={CATEGORY_LABELS[cat] ?? cat}
+              isActive={active === cat}
+              onClick={() => setCategory(cat)}
+            />
+          ))}
+        </div>
+
+        <div className="mt-8 flex justify-center lg:mt-0 lg:absolute lg:right-0 lg:-top-1">
+          <ToneToggle mono={mono} onChange={setMono} />
+        </div>
       </div>
 
       <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-6">
@@ -105,10 +131,10 @@ export default function WorkGrid({
             key={img.src}
             type="button"
             onClick={() => setLightboxIndex(i)}
-            className="group relative block overflow-hidden text-left aspect-[4/5]"
+            className="group relative block overflow-hidden text-left aspect-[4/5] border border-line"
           >
             {img.type === "video" ? (
-              <GridVideo item={img} reduced={!!reduced} />
+              <GridVideo item={img} reduced={!!reduced} mono={mono} />
             ) : (
               <Image
                 src={img.src}
@@ -118,7 +144,7 @@ export default function WorkGrid({
                 blurDataURL={img.blurDataURL}
                 loading={i < 6 ? "eager" : "lazy"}
                 sizes="(max-width: 640px) 33vw, (max-width: 1024px) 33vw, 25vw"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                className={`${toneClass(mono)} object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-[1.05]`}
               />
             )}
             <div
@@ -145,7 +171,41 @@ export default function WorkGrid({
         onNext={next}
         onPrev={prev}
         reduced={!!reduced}
+        mono={mono}
       />
+    </div>
+  );
+}
+
+/**
+ * Two mutually exclusive states rather than a switch widget: the labels name
+ * both options outright, so nobody has to infer what the "off" position of a
+ * switch would mean. Exposed as a radiogroup for the same reason.
+ */
+function ToneToggle({ mono, onChange }: { mono: boolean; onChange: (mono: boolean) => void }) {
+  return (
+    <div
+      className="inline-flex items-center border border-line"
+      role="radiogroup"
+      aria-label="Portfolio colour treatment"
+    >
+      {[
+        { label: "Colour", value: false },
+        { label: "B&W", value: true },
+      ].map(({ label, value }) => (
+        <button
+          key={label}
+          type="button"
+          role="radio"
+          aria-checked={mono === value}
+          onClick={() => onChange(value)}
+          className={`eyebrow px-4 py-2 transition-colors duration-300 ${
+            mono === value ? "bg-ivory !text-ink" : "text-ivory/60 hover:!text-ivory"
+          }`}
+        >
+          {label}
+        </button>
+      ))}
     </div>
   );
 }
@@ -181,6 +241,7 @@ function Lightbox({
   onNext,
   onPrev,
   reduced,
+  mono,
 }: {
   images: WorkItem[];
   index: number | null;
@@ -188,6 +249,7 @@ function Lightbox({
   onNext: () => void;
   onPrev: () => void;
   reduced: boolean;
+  mono: boolean;
 }) {
   const closeRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -282,7 +344,7 @@ function Lightbox({
                     muted
                     playsInline
                     controls
-                    className="max-h-[70vh] w-auto object-contain"
+                    className={`${toneClass(mono)} max-h-[70vh] w-auto object-contain transition-[filter] duration-500 ease-out`}
                   />
                 ) : (
                   <Image
@@ -293,7 +355,7 @@ function Lightbox({
                     placeholder="blur"
                     blurDataURL={img.blurDataURL}
                     sizes="90vw"
-                    className="max-h-[70vh] w-auto object-contain"
+                    className={`${toneClass(mono)} max-h-[70vh] w-auto object-contain transition-[filter] duration-500 ease-out`}
                     priority
                   />
                 )}
