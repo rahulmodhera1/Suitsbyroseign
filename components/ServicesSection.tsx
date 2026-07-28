@@ -56,7 +56,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="relative scroll-mt-24 lg:scroll-mt-32 px-6 lg:px-24 text-ink"
+      className="relative scroll-mt-24 lg:scroll-mt-32 px-6 lg:px-24 text-ink overflow-x-clip"
       style={{
         paddingTop: "var(--section-pad)",
         paddingBottom: "var(--section-pad)",

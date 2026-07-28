@@ -14,9 +14,9 @@ export default function Testimonials() {
   return (
     <section
       className="px-6 lg:px-24"
-      style={{ paddingTop: "var(--section-pad)", paddingBottom: "var(--section-pad)" }}
+      style={{ paddingTop: "clamp(1.5rem, 4vh, 3rem)", paddingBottom: "var(--section-pad)" }}
     >
-      <div className="max-w-3xl mx-auto text-center min-h-[260px] flex flex-col items-center justify-center">
+      <div className="max-w-3xl mx-auto text-center min-h-[210px] flex flex-col items-center justify-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
