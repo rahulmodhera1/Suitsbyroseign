@@ -47,40 +47,52 @@ const SERVICES = [
 
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
+const TEXTURE_URL =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_3GHeym8zFcW8bPwweVke9vdUrGE/hf_20260728_014408_89383aa2-5e33-4741-ad2d-6dbada173a89.png";
+
 export default function ServicesSection() {
   const [open, setOpen] = useState(0);
 
   return (
     <section
       id="services"
-      className="scroll-mt-32 lg:scroll-mt-40 px-6 lg:px-24"
-      style={{ paddingTop: "var(--section-pad)", paddingBottom: "var(--section-pad)" }}
+      className="relative scroll-mt-32 lg:scroll-mt-40 px-6 lg:px-24 text-ink overflow-hidden"
+      style={{
+        paddingTop: "var(--section-pad)",
+        paddingBottom: "var(--section-pad)",
+        backgroundColor: "var(--paper)",
+        backgroundImage: `url(${TEXTURE_URL})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <div className="max-w-[1800px] mx-auto lg:grid lg:grid-cols-[320px_1fr] lg:gap-16 xl:gap-24">
+      <div className="absolute inset-0 bg-paper/78" aria-hidden="true" />
+
+      <div className="relative max-w-[1800px] mx-auto lg:grid lg:grid-cols-[320px_1fr] lg:gap-16 xl:gap-24">
       <Reveal className="mb-14 lg:mb-0 lg:sticky lg:top-40 lg:self-start">
-        <p className="eyebrow">What we tailor</p>
+        <p className="eyebrow !text-ink/50">What we tailor</p>
         <h2
           className="font-display font-bold mt-4 mb-6 leading-[1.05]"
           style={{ fontSize: "clamp(2.5rem, 3.6vw, 3.75rem)" }}
         >
           Services
         </h2>
-        <p className="text-body font-light text-ivory/60 leading-relaxed mb-10 max-w-sm">
+        <p className="text-body font-light text-ink/60 leading-relaxed mb-10 max-w-sm">
           Six ways we build a suit, each one quoted after a proper consultation, never off a
           price list.
         </p>
-        <Button href={CALENDLY_URL} external>
+        <Button href={CALENDLY_URL} external variant="dark">
           Book a fitting
         </Button>
       </Reveal>
 
-      <div className="border-t border-ivory/15">
+      <div className="border-t border-ink/15">
         {SERVICES.map((service, i) => {
           const isOpen = open === i;
           return (
             <motion.div
               key={service.title}
-              className="group relative border-b border-ivory/15 overflow-hidden transition-colors duration-500"
+              className="group relative border-b border-ink/15 overflow-hidden transition-colors duration-500"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10% 0px" }}
@@ -88,7 +100,7 @@ export default function ServicesSection() {
             >
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute -top-3 right-0 select-none font-display font-bold leading-none text-ivory/[0.05] transition-colors duration-500 group-hover:text-ivory/[0.08]"
+                className="pointer-events-none absolute -top-3 right-0 select-none font-display font-bold leading-none text-ink/[0.06] transition-colors duration-500 group-hover:text-ink/[0.1]"
                 style={{ fontSize: "clamp(6rem, 12vw, 10rem)" }}
               >
                 {String(i + 1).padStart(2, "0")}
@@ -100,35 +112,35 @@ export default function ServicesSection() {
                 aria-expanded={isOpen}
                 className="relative flex w-full items-center gap-4 sm:gap-6 py-8 lg:py-10 text-left"
               >
-                <span className="font-display text-lg sm:text-xl text-ivory/35 tabular-nums w-8 sm:w-10 shrink-0">
+                <span className="font-display text-lg sm:text-xl text-ink/35 tabular-nums w-8 sm:w-10 shrink-0">
                   {String(i + 1).padStart(2, "0")}
                 </span>
 
                 <h3
                   className={`flex-1 font-display font-bold leading-tight transition-colors duration-300 ${
-                    isOpen ? "text-ivory" : "text-ivory/80 group-hover:text-ivory"
+                    isOpen ? "text-ink" : "text-ink/75 group-hover:text-ink"
                   }`}
                   style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.75rem)" }}
                 >
                   {service.title}
                 </h3>
 
-                <span className="eyebrow !text-ivory/45 hidden sm:block shrink-0">{service.timeline}</span>
+                <span className="eyebrow !text-ink/45 hidden sm:block shrink-0">{service.timeline}</span>
 
                 <span
                   className={`relative shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full border transition-all duration-500 ${
-                    isOpen ? "border-ivory bg-ivory rotate-45" : "border-ivory/25 group-hover:border-ivory/50"
+                    isOpen ? "border-ink bg-ink rotate-45" : "border-ink/30 group-hover:border-ink/60"
                   }`}
                   aria-hidden="true"
                 >
                   <span
                     className={`absolute inset-y-0 left-1/2 w-px -translate-x-1/2 transition-colors duration-500 ${
-                      isOpen ? "bg-ink" : "bg-ivory/70"
+                      isOpen ? "bg-ivory" : "bg-ink/70"
                     }`}
                   />
                   <span
                     className={`absolute inset-x-0 top-1/2 h-px -translate-y-1/2 transition-colors duration-500 ${
-                      isOpen ? "bg-ink" : "bg-ivory/70"
+                      isOpen ? "bg-ivory" : "bg-ink/70"
                     }`}
                   />
                 </span>
@@ -140,9 +152,9 @@ export default function ServicesSection() {
               >
                 <div className="overflow-hidden">
                   <div className="pl-12 sm:pl-16 pr-4 pb-8 lg:pb-10 max-w-2xl">
-                    <p className="text-body font-light text-ivory/70 leading-relaxed">{service.body}</p>
-                    <p className="eyebrow !text-ivory/40 mt-4">{service.detail}</p>
-                    <p className="eyebrow !text-ivory/40 mt-2 sm:hidden">{service.timeline}</p>
+                    <p className="text-body font-light text-ink/70 leading-relaxed">{service.body}</p>
+                    <p className="eyebrow !text-ink/45 mt-4">{service.detail}</p>
+                    <p className="eyebrow !text-ink/45 mt-2 sm:hidden">{service.timeline}</p>
                   </div>
                 </div>
               </div>

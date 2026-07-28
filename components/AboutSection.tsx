@@ -1,14 +1,26 @@
 import Image from "next/image";
 import { Reveal } from "./Reveal";
 
+const TEXTURE_URL =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_3GHeym8zFcW8bPwweVke9vdUrGE/hf_20260728_014409_cda4584d-3d44-4ac4-a97e-963878773f9a.png";
+
 export default function AboutSection() {
   return (
     <section
       id="about"
-      className="scroll-mt-32 lg:scroll-mt-40 px-6 lg:px-24"
-      style={{ paddingTop: "var(--section-pad)", paddingBottom: "var(--section-pad)" }}
+      className="relative scroll-mt-32 lg:scroll-mt-40 px-6 lg:px-24 overflow-hidden"
+      style={{
+        paddingTop: "var(--section-pad)",
+        paddingBottom: "var(--section-pad)",
+        backgroundColor: "var(--ink)",
+        backgroundImage: `url(${TEXTURE_URL})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <Reveal>
+      <div className="absolute inset-0 bg-ink/60" aria-hidden="true" />
+
+      <Reveal className="relative">
         <p className="eyebrow text-center">The house</p>
         <h2
           className="font-display font-bold text-center mt-4 mb-16 leading-[1.05]"
@@ -18,7 +30,7 @@ export default function AboutSection() {
         </h2>
       </Reveal>
 
-      <div className="max-w-5xl mx-auto grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-start">
+      <div className="relative max-w-5xl mx-auto grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-start">
         <Reveal>
           <div className="relative aspect-[4/5] w-full overflow-hidden">
             <Image
