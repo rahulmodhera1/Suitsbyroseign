@@ -76,10 +76,48 @@ export default function WorkGrid({
   // one-page layout, so filtering must not push history or move the scroll.
   const [active, setActive] = useState("all");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  // Colour is the default: the cloth is the product. Black and white is the
-  // house look, so the toggle offers it rather than imposing it.
-  const [mono, setMono] = useState(false);
+  // The grid opens in black and white to match the hero film, then blooms
+  // into colour once the visitor has actually reached the work. Starting
+  // mono unconditionally keeps the server and first client render identical;
+  // the effect below decides what happens next.
+  const [mono, setMono] = useState(true);
+  // Any manual choice ends the automatic reveal for good — the toggle must
+  // never be overridden after someone has used it.
+  const [userChose, setUserChose] = useState(false);
+  const gridRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+
+  const chooseTone = useCallback((next: boolean) => {
+    setUserChose(true);
+    setMono(next);
+  }, []);
+
+  useEffect(() => {
+    if (userChose) return;
+    // Nothing to reveal if motion is unwelcome: go straight to colour.
+    if (reduced) {
+      setMono(false);
+      return;
+    }
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    let timer: ReturnType<typeof setTimeout>;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        // A beat to read the grid as monochrome before the colour arrives.
+        timer = setTimeout(() => setMono(false), 1400);
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(grid);
+    return () => {
+      io.disconnect();
+      clearTimeout(timer);
+    };
+  }, [reduced, userChose]);
 
   const filtered = useMemo(
     () => (active === "all" ? images : images.filter((img) => img.category === active)),
@@ -121,11 +159,13 @@ export default function WorkGrid({
         </div>
 
         <div className="mt-8 flex justify-center lg:mt-0 lg:absolute lg:right-0 lg:-top-1">
-          <ToneToggle mono={mono} onChange={setMono} />
+          <ToneToggle mono={mono} onChange={chooseTone} />
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-6">
+      {/* Two across on phones — three made each tile too small to read a suit
+          in. Three from sm upward, where there is width for it. */}
+      <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 lg:gap-6">
         {filtered.map((img, i) => (
           <button
             key={img.src}

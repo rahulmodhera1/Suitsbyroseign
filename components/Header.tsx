@@ -93,9 +93,18 @@ export default function Header() {
             Menu
           </button>
         </div>
-
-        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={SECTIONS} />
       </header>
+
+      {/*
+        Deliberately a sibling of <header>, not a child of it. The scrolled
+        header carries backdrop-blur, and an element with a backdrop-filter
+        becomes the containing block for its position:fixed descendants — so
+        nested here the menu's inset-0 resolved against the ~96px header box
+        instead of the viewport, and the panel was clipped to a sliver once
+        past the hero. Outside the header it resolves against the viewport
+        again, and its z-60 still sits above the header's z-50.
+      */}
+      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={SECTIONS} />
     </>
   );
 }
