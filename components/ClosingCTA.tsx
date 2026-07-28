@@ -1,20 +1,40 @@
-import Image from "next/image";
 import { Reveal } from "./Reveal";
 import Button from "./Button";
 import { CALENDLY_URL, INSTAGRAM_URL } from "@/lib/site";
 
 export default function ClosingCTA() {
   return (
-    <section id="book" className="scroll-mt-24 lg:scroll-mt-32 relative isolate overflow-hidden">
+    <section
+      id="book"
+      className="scroll-mt-24 lg:scroll-mt-32 relative isolate overflow-hidden bg-ink"
+    >
       <div className="relative min-h-[70vh] flex flex-col items-center justify-center text-center px-6 py-24">
-        <Image
-          src="/home/process-04.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="photo object-cover -z-10"
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[820px] h-[820px] max-w-[130vw] max-h-[130vw] rounded-full pointer-events-none"
+          style={{
+            background: "radial-gradient(circle, rgba(243,243,241,0.08) 0%, rgba(243,243,241,0) 70%)",
+          }}
+          aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-ink/75 -z-10" />
+
+        <svg
+          viewBox="0 0 200 150"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] sm:w-[560px] lg:w-[680px] h-auto text-ivory/[0.07] pointer-events-none"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1"
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M30 110 18 40l34 28 18-38 18 38 34-28-12 70Z"
+          />
+          <path strokeLinecap="round" d="M28 118h144" />
+          <circle cx="100" cy="18" r="4" />
+          <circle cx="18" cy="40" r="3" />
+          <circle cx="182" cy="40" r="3" />
+        </svg>
 
         <Reveal>
           <p className="eyebrow">Book a fitting</p>
