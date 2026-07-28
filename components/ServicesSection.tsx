@@ -48,7 +48,7 @@ const SERVICES = [
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
 const TEXTURE_URL =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_3GHeym8zFcW8bPwweVke9vdUrGE/hf_20260728_014408_89383aa2-5e33-4741-ad2d-6dbada173a89.png";
+  "https://d8j0ntlcm91z4.cloudfront.net/user_3GHeym8zFcW8bPwweVke9vdUrGE/hf_20260728_020057_627a6e4c-e61a-477f-b1ea-bff51a5d6a19.png";
 
 export default function ServicesSection() {
   const [open, setOpen] = useState(0);
