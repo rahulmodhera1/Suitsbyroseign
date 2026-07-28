@@ -5,12 +5,19 @@ export default function Footer() {
   return (
     <footer className="border-t border-ivory/12">
       <div className="max-w-4xl mx-auto px-6 py-24 flex flex-col items-center text-center gap-8">
+        {/*
+          A trimmed copy of the mark rather than logo-white.png. That file is
+          a 1080x1080 square whose artwork occupies only 35% of the height, so
+          sizing it by height spent most of the box on empty padding — at the
+          previous h-24 the mark rendered barely 33px tall. Cropping to the
+          artwork means the height here is the height you actually see.
+        */}
         <Image
-          src="/brand/logo-white.png"
+          src="/brand/logo-white-mark.png"
           alt="Suits By Roseign"
-          width={140}
-          height={140}
-          className="h-24 w-auto object-contain"
+          width={719}
+          height={425}
+          className="h-36 sm:h-48 lg:h-64 w-auto max-w-full object-contain"
         />
         <p className="font-display italic text-xl text-ivory">
           Effortless Elegance, Tailored Perfection.
