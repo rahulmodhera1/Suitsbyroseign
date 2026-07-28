@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Reveal, revealItem } from "./Reveal";
+import { Reveal } from "./Reveal";
 import Button from "./Button";
 import { CALENDLY_URL } from "@/lib/site";
 
@@ -47,6 +48,8 @@ const SERVICES = [
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
 export default function ServicesSection() {
+  const [open, setOpen] = useState(0);
+
   return (
     <section
       id="services"
@@ -63,42 +66,81 @@ export default function ServicesSection() {
         </h2>
       </Reveal>
 
-      <div className="max-w-6xl mx-auto border-t border-ivory/15">
-        {SERVICES.map((service, i) => (
-          <motion.div
-            key={service.title}
-            className="group border-b border-ivory/15"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10% 0px" }}
-            transition={{ duration: 0.7, delay: i * 0.05, ease: EASE_OUT }}
-            variants={revealItem}
-          >
-            <div className="grid md:grid-cols-12 gap-y-4 gap-x-8 items-baseline py-10 lg:py-12 transition-colors duration-500 group-hover:bg-ivory/[0.03]">
-              <span className="md:col-span-1 font-display text-2xl text-ivory/30 tabular-nums">
+      <div className="max-w-4xl mx-auto border-t border-ivory/15">
+        {SERVICES.map((service, i) => {
+          const isOpen = open === i;
+          return (
+            <motion.div
+              key={service.title}
+              className="group relative border-b border-ivory/15 overflow-hidden transition-colors duration-500"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10% 0px" }}
+              transition={{ duration: 0.7, delay: i * 0.05, ease: EASE_OUT }}
+            >
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-3 right-0 select-none font-display font-bold leading-none text-ivory/[0.05] transition-colors duration-500 group-hover:text-ivory/[0.08]"
+                style={{ fontSize: "clamp(6rem, 12vw, 10rem)" }}
+              >
                 {String(i + 1).padStart(2, "0")}
               </span>
 
-              <h3
-                className="md:col-span-4 font-display font-bold leading-tight"
-                style={{ fontSize: "clamp(1.75rem, 2.6vw, 2.5rem)" }}
+              <button
+                type="button"
+                onClick={() => setOpen(isOpen ? -1 : i)}
+                aria-expanded={isOpen}
+                className="relative flex w-full items-center gap-4 sm:gap-6 py-8 lg:py-10 text-left"
               >
-                {service.title}
-              </h3>
+                <span className="font-display text-lg sm:text-xl text-ivory/35 tabular-nums w-8 sm:w-10 shrink-0">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
 
-              <div className="md:col-span-5">
-                <p className="text-body font-light text-ivory/75 leading-relaxed">
-                  {service.body}
-                </p>
-                <p className="eyebrow !text-ivory/40 mt-4">{service.detail}</p>
+                <h3
+                  className={`flex-1 font-display font-bold leading-tight transition-colors duration-300 ${
+                    isOpen ? "text-ivory" : "text-ivory/80 group-hover:text-ivory"
+                  }`}
+                  style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.75rem)" }}
+                >
+                  {service.title}
+                </h3>
+
+                <span className="eyebrow !text-ivory/45 hidden sm:block shrink-0">{service.timeline}</span>
+
+                <span
+                  className={`relative shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-full border transition-all duration-500 ${
+                    isOpen ? "border-ivory bg-ivory rotate-45" : "border-ivory/25 group-hover:border-ivory/50"
+                  }`}
+                  aria-hidden="true"
+                >
+                  <span
+                    className={`absolute inset-y-0 left-1/2 w-px -translate-x-1/2 transition-colors duration-500 ${
+                      isOpen ? "bg-ink" : "bg-ivory/70"
+                    }`}
+                  />
+                  <span
+                    className={`absolute inset-x-0 top-1/2 h-px -translate-y-1/2 transition-colors duration-500 ${
+                      isOpen ? "bg-ink" : "bg-ivory/70"
+                    }`}
+                  />
+                </span>
+              </button>
+
+              <div
+                className="relative grid transition-[grid-template-rows] duration-500 ease-out"
+                style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+              >
+                <div className="overflow-hidden">
+                  <div className="pl-12 sm:pl-16 pr-4 pb-8 lg:pb-10 max-w-2xl">
+                    <p className="text-body font-light text-ivory/70 leading-relaxed">{service.body}</p>
+                    <p className="eyebrow !text-ivory/40 mt-4">{service.detail}</p>
+                    <p className="eyebrow !text-ivory/40 mt-2 sm:hidden">{service.timeline}</p>
+                  </div>
+                </div>
               </div>
-
-              <p className="md:col-span-2 eyebrow !text-ivory/55 md:text-right">
-                {service.timeline}
-              </p>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
 
       <Reveal delay={0.1}>

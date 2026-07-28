@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Reveal } from "./Reveal";
 
 const STEPS = [
@@ -45,6 +46,13 @@ const STEPS = [
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
 export default function ProcessSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 0.8", "end 0.55"],
+  });
+  const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
     <section
       id="process"
@@ -59,39 +67,47 @@ export default function ProcessSection() {
         >
           We Come To You
         </h2>
-        <p className="text-body font-light text-ink/60 text-center measure mx-auto mb-20">
+        <p className="text-body font-light text-ink/60 text-center measure mx-auto mb-24">
           The whole commission happens wherever you are — home, office, or venue. No showroom
           visits, no lost afternoons.
         </p>
       </Reveal>
 
-      <div className="max-w-6xl mx-auto border-t border-ink/15">
+      <div ref={containerRef} className="relative max-w-3xl mx-auto">
+        <div
+          className="absolute left-5 sm:left-6 top-2 bottom-2 w-px bg-ink/12"
+          aria-hidden="true"
+        />
+        <motion.div
+          className="absolute left-5 sm:left-6 top-2 bottom-2 w-px bg-ink origin-top"
+          style={{ scaleY: lineScale }}
+          aria-hidden="true"
+        />
+
         {STEPS.map((step, i) => (
           <motion.div
             key={step.n}
-            className="group border-b border-ink/15"
-            initial={{ opacity: 0, y: 20 }}
+            className="group relative flex gap-6 sm:gap-10 pb-16 last:pb-0"
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10% 0px" }}
+            viewport={{ once: true, margin: "-15% 0px" }}
             transition={{ duration: 0.7, delay: i * 0.05, ease: EASE_OUT }}
           >
-            <div className="grid md:grid-cols-12 gap-y-4 gap-x-8 items-baseline py-10 lg:py-12 transition-colors duration-500 group-hover:bg-ink/[0.03]">
-              <span className="md:col-span-1 font-display text-2xl text-ink/30 tabular-nums">
-                {step.n}
-              </span>
+            <span className="relative z-10 shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-paper border border-ink/25 flex items-center justify-center font-display text-sm sm:text-base tabular-nums transition-colors duration-500 group-hover:border-ink">
+              {step.n}
+            </span>
 
-              <h3
-                className="md:col-span-4 font-display font-bold leading-tight"
-                style={{ fontSize: "clamp(1.75rem, 2.6vw, 2.5rem)" }}
-              >
-                {step.title}
-              </h3>
-
-              <p className="md:col-span-5 text-body font-light text-ink/65 leading-relaxed">
-                {step.body}
-              </p>
-
-              <p className="md:col-span-2 eyebrow !text-ink/45 md:text-right">{step.where}</p>
+            <div className="flex-1 pt-1 sm:pt-2 transition-transform duration-500 group-hover:translate-x-1">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 mb-3">
+                <h3
+                  className="font-display font-bold leading-tight"
+                  style={{ fontSize: "clamp(1.5rem, 2.6vw, 2.25rem)" }}
+                >
+                  {step.title}
+                </h3>
+                <span className="eyebrow !text-ink/40">{step.where}</span>
+              </div>
+              <p className="text-body font-light text-ink/65 leading-relaxed max-w-xl">{step.body}</p>
             </div>
           </motion.div>
         ))}
