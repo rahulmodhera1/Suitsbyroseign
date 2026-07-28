@@ -1,7 +1,11 @@
 import raw from "@/content/gallery.generated.json";
 
-export type WorkImage = {
+export type WorkItem = {
+  /** Videos render as a muted, looping <video>; images as a next/image. */
+  type: "image" | "video";
   src: string;
+  /** Still frame shown before a video plays. Always null for images. */
+  poster: string | null;
   category: string;
   order: number;
   slug: string;
@@ -14,7 +18,7 @@ export type WorkImage = {
   blurDataURL: string;
 };
 
-const data = raw as { categories: Record<string, WorkImage[]> };
+const data = raw as { categories: Record<string, WorkItem[]> };
 
 export const CATEGORY_LABELS: Record<string, string> = {
   weddings: "Wedding Suits",
@@ -23,15 +27,15 @@ export const CATEGORY_LABELS: Record<string, string> = {
   "made-to-measure": "Made-to-Measure",
 };
 
-export function getAllWork(): WorkImage[] {
+export function getAllWork(): WorkItem[] {
   return Object.values(data.categories).flat();
 }
 
-export function getWorkByCategory(category: string): WorkImage[] {
+export function getWorkByCategory(category: string): WorkItem[] {
   return data.categories[category] ?? [];
 }
 
-export function getFeaturedWork(limit = 6): WorkImage[] {
+export function getFeaturedWork(limit = 6): WorkItem[] {
   const featured = getAllWork().filter((img) => img.featured);
   const pool = featured.length >= limit ? featured : getAllWork();
   return pool.slice(0, limit);

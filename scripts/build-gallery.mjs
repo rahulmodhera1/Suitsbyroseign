@@ -9,7 +9,15 @@ import sharp from "sharp";
 const GALLERY_ROOT = "public/gallery";
 const OUT_FILE = "content/gallery.generated.json";
 const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
+const VIDEO_EXT = new Set([".mp4", ".webm"]);
 const MAX_WARN_BYTES = 3 * 1024 * 1024;
+const MAX_WARN_VIDEO_BYTES = 8 * 1024 * 1024;
+
+// Each video ships a companion still named "<name>.poster.jpg". The poster is
+// what the grid shows before playback starts, and it is also where the video's
+// dimensions and blur placeholder come from — the deploy has no ffmpeg, so
+// nothing here can decode a video frame at build time.
+const POSTER_SUFFIX = ".poster";
 
 const EXPECTED_CATEGORIES = ["weddings", "business", "black-tie", "made-to-measure"];
 
@@ -68,27 +76,47 @@ async function main() {
       meta = JSON.parse(readFileSync(join(dirPath, "meta.json"), "utf-8"));
     }
 
-    const images = [];
+    const items = [];
 
     for (const filename of entries) {
       if (filename.startsWith(".") || filename === "README.md" || filename === "meta.json") continue;
       const ext = extname(filename).toLowerCase();
-      if (!IMAGE_EXT.has(ext)) continue;
+      const isVideo = VIDEO_EXT.has(ext);
+      // Posters are companions to a video, never gallery entries of their own.
+      if (basename(filename, ext).endsWith(POSTER_SUFFIX)) continue;
+      if (!isVideo && !IMAGE_EXT.has(ext)) continue;
 
       const filePath = join(dirPath, filename);
       const stat = statSync(filePath);
-      if (stat.size > MAX_WARN_BYTES) {
+      const limit = isVideo ? MAX_WARN_VIDEO_BYTES : MAX_WARN_BYTES;
+      if (stat.size > limit) {
         console.warn(
-          `[gallery] warning: ${filePath} is ${(stat.size / 1024 / 1024).toFixed(1)}MB — export smaller than 3MB.`
+          `[gallery] warning: ${filePath} is ${(stat.size / 1024 / 1024).toFixed(1)}MB — export smaller than ${limit / 1024 / 1024}MB.`
         );
       }
 
-      const dims = sizeOf(readFileSync(filePath));
+      // A video's dimensions and blur placeholder are read off its poster,
+      // which is the one frame of it this script can actually decode.
+      let posterFile = null;
+      if (isVideo) {
+        posterFile = `${basename(filename, ext)}${POSTER_SUFFIX}.jpg`;
+        if (!entries.includes(posterFile)) {
+          throw new Error(
+            `Gallery build failed: ${filePath} has no poster. Add "${join(dirPath, posterFile)}" ` +
+              `(one frame of the video, same dimensions) next to it.`
+          );
+        }
+      }
+      const measuredPath = isVideo ? join(dirPath, posterFile) : filePath;
+
+      const dims = sizeOf(readFileSync(measuredPath));
       const parsed = parseFilename(filename);
       const override = meta[filename] ?? {};
 
-      images.push({
+      items.push({
+        type: isVideo ? "video" : "image",
         src: `/gallery/${category}/${filename}`,
+        poster: isVideo ? `/gallery/${category}/${posterFile}` : null,
         category,
         order: parsed.order,
         slug: parsed.slug,
@@ -98,18 +126,21 @@ async function main() {
         alt: override.alt ?? `${parsed.caption} — ${titleCase(category)}`,
         location: override.location ?? null,
         featured: override.featured ?? parsed.featured,
-        blurDataURL: await blurDataURL(filePath),
+        blurDataURL: await blurDataURL(measuredPath),
       });
     }
 
-    images.sort((a, b) => a.order - b.order || a.slug.localeCompare(b.slug));
-    categories[category] = images;
+    items.sort((a, b) => a.order - b.order || a.slug.localeCompare(b.slug));
+    categories[category] = items;
   }
 
   mkdirSync("content", { recursive: true });
   writeFileSync(OUT_FILE, JSON.stringify({ categories }, null, 2));
-  const total = Object.values(categories).reduce((n, arr) => n + arr.length, 0);
-  console.log(`[gallery] wrote ${OUT_FILE} (${total} images across ${categoryDirs.length} categories)`);
+  const all = Object.values(categories).flat();
+  const videos = all.filter((i) => i.type === "video").length;
+  console.log(
+    `[gallery] wrote ${OUT_FILE} (${all.length - videos} images, ${videos} videos across ${categoryDirs.length} categories)`
+  );
 }
 
 main().catch((err) => {

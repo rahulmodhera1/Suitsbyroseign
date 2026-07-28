@@ -3,15 +3,63 @@
 import { useMemo, useState, useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { CATEGORY_LABELS, type WorkImage } from "@/lib/gallery";
+import { CATEGORY_LABELS, type WorkItem } from "@/lib/gallery";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+/**
+ * A gallery video: muted and looping, never showing controls in the grid.
+ * The source files carry no audio track at all, so there is nothing to mute
+ * beyond satisfying the autoplay policy.
+ *
+ * Playback is driven by an IntersectionObserver rather than the `autoPlay`
+ * attribute so that a grid of clips only fetches the ones actually on screen
+ * — with `preload="none"`, nothing downloads until the tile is scrolled to.
+ */
+function GridVideo({ item, reduced }: { item: WorkItem; reduced: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = ref.current;
+    // Reduced motion keeps the poster frame and never starts playback.
+    if (!video || reduced) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // play() rejects if the browser declines autoplay; the poster stays
+          // up in that case, which is a perfectly good fallback.
+          void video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    io.observe(video);
+    return () => io.disconnect();
+  }, [reduced]);
+
+  return (
+    <video
+      ref={ref}
+      src={item.src}
+      poster={item.poster ?? undefined}
+      aria-label={item.alt}
+      loop
+      muted
+      playsInline
+      preload="none"
+      className="photo absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+    />
+  );
+}
 
 export default function WorkGrid({
   images,
   categories,
 }: {
-  images: WorkImage[];
+  images: WorkItem[];
   categories: string[];
 }) {
   // Local state rather than a URL param: the gallery now lives inside the
@@ -59,16 +107,20 @@ export default function WorkGrid({
             onClick={() => setLightboxIndex(i)}
             className="group relative block overflow-hidden text-left aspect-[4/5]"
           >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              fill
-              placeholder="blur"
-              blurDataURL={img.blurDataURL}
-              loading={i < 6 ? "eager" : "lazy"}
-              sizes="(max-width: 640px) 33vw, (max-width: 1024px) 33vw, 25vw"
-              className="photo object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-            />
+            {img.type === "video" ? (
+              <GridVideo item={img} reduced={!!reduced} />
+            ) : (
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                placeholder="blur"
+                blurDataURL={img.blurDataURL}
+                loading={i < 6 ? "eager" : "lazy"}
+                sizes="(max-width: 640px) 33vw, (max-width: 1024px) 33vw, 25vw"
+                className="photo object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+              />
+            )}
             <div
               className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/0 to-transparent transition-opacity duration-500 ease-out group-hover:from-ink/90"
               aria-hidden="true"
@@ -130,7 +182,7 @@ function Lightbox({
   onPrev,
   reduced,
 }: {
-  images: WorkImage[];
+  images: WorkItem[];
   index: number | null;
   onClose: () => void;
   onNext: () => void;
@@ -218,17 +270,33 @@ function Lightbox({
                 transition={{ duration: 0.25, ease: EASE }}
                 className="max-w-full max-h-full flex flex-col items-center"
               >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  width={img.width}
-                  height={img.height}
-                  placeholder="blur"
-                  blurDataURL={img.blurDataURL}
-                  sizes="90vw"
-                  className="photo max-h-[70vh] w-auto object-contain"
-                  priority
-                />
+                {img.type === "video" ? (
+                  // Controls appear here but not in the grid: at full size a
+                  // 30-second clip is worth being able to pause and scrub.
+                  <video
+                    src={img.src}
+                    poster={img.poster ?? undefined}
+                    aria-label={img.alt}
+                    autoPlay={!reduced}
+                    loop
+                    muted
+                    playsInline
+                    controls
+                    className="photo max-h-[70vh] w-auto object-contain"
+                  />
+                ) : (
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={img.width}
+                    height={img.height}
+                    placeholder="blur"
+                    blurDataURL={img.blurDataURL}
+                    sizes="90vw"
+                    className="photo max-h-[70vh] w-auto object-contain"
+                    priority
+                  />
+                )}
                 <div className="mt-6 text-center">
                   <p className="font-display italic text-lg text-ivory">{img.caption}</p>
                   {img.location && <p className="eyebrow mt-2">{img.location}</p>}
